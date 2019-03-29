@@ -1,9 +1,12 @@
 # me-admin-sdk
 
 封装了 me-admin-template，使其真正的可开箱即用
+
 示例：[完整版](https://yimogit.github.io/me-admin-sdk/example/html/full.html) [无依赖版本](https://yimogit.github.io/me-admin-sdk/example/html/mini.html)
 
-## import 引用
+## npm 包
+
+安装：`npm install --save me-admin-sdk`
 
 ```js
 import MeAdminSdk from 'me-admin-sdk'
@@ -12,8 +15,9 @@ MeAdminSdk.register(options)
 
 ## script 完整版
 
-将依赖的 vue 全家桶及所有依赖的包一并打包到文件中了
-引用：`vue,vuex,vue-router,axios,element-ui`
+将依赖的 vue 全家桶及所有依赖的包一并打包到一个文件
+
+相关依赖：`vue,vuex,vue-router,axios,element-ui`
 
 ```js
 <script src="./me-admin-sdk-full.js"></script>
@@ -24,7 +28,7 @@ MeAdminSdk.register(options)
 
 ## script 组件版
 
-未将 vue 等打包到其中
+组件形式打包,打包时将依赖排除，使用时需要引用使用的依赖
 
 ```js
 <script src="https://unpkg.com/vue@2.5.17/dist/vue.min.js"></script>
