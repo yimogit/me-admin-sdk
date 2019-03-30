@@ -1,8 +1,7 @@
 import $ui from '../_extends/ui'
-import NProgress from 'nprogress' // Progress 进度条
 import { checkAuth } from '../filters'
 const beforeEach = (to, from, next) => {
-  NProgress.start()
+  $ui.pages.showProgress()
   if (!to.meta.auth || to.meta.skipauth || checkAuth(to.name)) {
     return next()
   }
@@ -13,7 +12,7 @@ const beforeEach = (to, from, next) => {
   }
 }
 const afterEach = (to, from) => {
-  NProgress.done()
+  $ui.pages.hideProgress()
 }
 
 // function checkAuth(code) {

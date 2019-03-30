@@ -3,6 +3,7 @@
     class="theme-picker"
     popper-class="theme-picker-dropdown"
     v-model="theme"
+    :predefine="predefineColors"
   ></el-color-picker>
 </template>
 
@@ -11,7 +12,8 @@ const DEFAULT_THEME = "#409EFF"; // default color
 export default {
   data() {
     return {
-      theme: DEFAULT_THEME
+      theme: DEFAULT_THEME,
+      predefineColors: ["#409EFF", "#3EBBB1", "#BB963E"]
     };
   },
   created() {
@@ -19,6 +21,9 @@ export default {
       localStorage.customThemeColor ||
       this.$store.getters.sysTheme ||
       DEFAULT_THEME;
+    this.predefineColors =
+      JSON.parse(localStorage.historyPreThemeColor || "null") ||
+      this.predefineColors;
   },
   watch: {
     theme(val, oldVal) {
@@ -49,7 +54,15 @@ export default {
       document.querySelectorAll(".custom-theme-color").forEach(cls => {
         cls.style.color = val;
       });
-
+      if (this.predefineColors.indexOf(val) === -1) {
+        if (this.predefineColors.length > 9) {
+          this.predefineColors.pop();
+        }
+        this.predefineColors.unshift(val);
+        localStorage.historyPreThemeColor = JSON.stringify(
+          this.predefineColors
+        );
+      }
       // this.$message({
       //   message: '换肤成功',
       //   type: 'success'
@@ -63,17 +76,6 @@ export default {
         newStyle = newStyle.replace(new RegExp(color, "ig"), newCluster[index]);
       });
       return newStyle;
-    },
-    getCSSString(url, callback, variable) {
-      const xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          this[variable] = xhr.responseText.replace(/@font-face{[^}]+}/, "");
-          callback();
-        }
-      };
-      xhr.open("GET", url);
-      xhr.send();
     },
     getThemeCluster(theme) {
       const tintColor = (color, tint) => {

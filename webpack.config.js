@@ -24,6 +24,7 @@ module.exports = {
         vue: 'Vue',
         vuex: 'Vuex',
         axios: 'axios',
+        nprogress: 'NProgress',
         'vue-router': 'VueRouter',
         'element-ui': 'ELEMENT'
       }

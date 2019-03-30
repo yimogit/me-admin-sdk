@@ -1,5 +1,8 @@
 // import Vue from 'vue'
 import MeAdminSdk from '../../src/index.js'
+// Element-UI 样式
+import 'element-ui/lib/theme-chalk/index.css'
+import 'nprogress/nprogress.css' // Progress 进度条样式
 const Layout = { template: '<v-layout/>' }
 // Vue.use(MeAdminSdk, {
 MeAdminSdk.register({

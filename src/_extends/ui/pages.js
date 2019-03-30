@@ -82,10 +82,10 @@ function _currentConfirm(content, title, opt) {
 //#region 进度条
 
 export function showProgress() {
-  NProgress.start()
+  NProgress && NProgress.start()
 }
 export function hideProgress() {
-  NProgress.done()
+  NProgress && NProgress.done()
 }
 
 //#endregion

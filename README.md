@@ -13,30 +13,39 @@ import MeAdminSdk from 'me-admin-sdk'
 MeAdminSdk.register(options)
 ```
 
-## script 完整版
+## 组件版
 
-将依赖的 vue 全家桶及所有依赖的包一并打包到一个文件
-
-相关依赖：`vue,vuex,vue-router,axios,element-ui`
+组件形式打包,打包时将依赖排除，使用时需要引用使用的依赖
 
 ```js
-<script src="./me-admin-sdk-full.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+
+<script src="https://unpkg.com/vue@2.5.17/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vuex@3.1.0/dist/vuex.min.js"></script>
+<script src="https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js"></script>
+<script src="https://unpkg.com/element-ui@2.7.0/lib/index.js"></script>
+<script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+<script src="./me-admin-sdk-mini.js"></script>
 <script type="text/javascript">
       MeAdminSdk.register(options)
 </script>
 ```
 
-## script 组件版
+## 完整版
 
-组件形式打包,打包时将依赖排除，使用时需要引用使用的依赖
+将依赖的 vue 全家桶及所有依赖的包一并打包到一个文件
+
+相关依赖：`vue,vuex,vue-router,element-ui,axios,nprogress`
+若不适用 `this.$ui.pages.fetch` 方法发送 ajax 请求则可以不引用 `axios`
+若不需要线上顶部进度条则可以不引用 `nprogress`
 
 ```js
-<script src="https://unpkg.com/vue@2.5.17/dist/vue.min.js"></script>
-<script src="https://unpkg.com/vuex@3.1.0/dist/vuex.min.js"></script>
-<script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
-<script src="https://unpkg.com/vue-router@3.0.2/dist/vue-router.min.js"></script>
-<script src="https://unpkg.com/element-ui@2.7.0/lib/index.js"></script>
-<script src="./me-admin-sdk-mini.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+
+<script src="./me-admin-sdk-full.js"></script>
 <script type="text/javascript">
       MeAdminSdk.register(options)
 </script>
