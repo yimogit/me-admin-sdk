@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import ElementUI from 'element-ui'
 import '../assets/styles/app.css'
 import '../assets/styles/layout.css'
@@ -7,13 +8,13 @@ import components from '../components'
 import filters from '../filters'
 import $ui from './ui'
 
-const register = function(_vue) {
+const register = function() {
   initFind()
-  _vue.use(ElementUI, { size: 'small' })
+  Vue.use(ElementUI, { size: 'small' })
   // 注册全局指令，过滤器，组件
-  Object.keys(directives).forEach(e => _vue.directive(e, directives[e]))
-  Object.keys(filters).forEach(e => _vue.filter(e, filters[e]))
-  Object.keys(components).forEach(e => _vue.component(e, components[e]))
+  Object.keys(directives).forEach(e => Vue.directive(e, directives[e]))
+  Object.keys(filters).forEach(e => Vue.filter(e, filters[e]))
+  Object.keys(components).forEach(e => Vue.component(e, components[e]))
 
   // 扩展 $ui
   var allExtends = { $ui }
@@ -24,13 +25,13 @@ const register = function(_vue) {
         return allExtends[e]
       }
     }
-    Object.defineProperties(_vue.prototype, plugin)
+    Object.defineProperties(Vue.prototype, plugin)
   })
 }
-const install = e => register(e)
+// const install = e => register(e)
 
 export default {
-  install,
+  // install,
   register
 }
 

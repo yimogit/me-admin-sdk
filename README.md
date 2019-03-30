@@ -4,13 +4,24 @@
 
 示例：[完整版](https://yimogit.github.io/me-admin-sdk/example/html/full.html) [无依赖版本](https://yimogit.github.io/me-admin-sdk/example/html/mini.html)
 
-## npm 包
 
-安装：`npm install --save me-admin-sdk`
+## 完整版
+
+将依赖的 vue 全家桶及所有依赖的包一并打包到一个文件
+
+相关依赖：`vue,vuex,vue-router,element-ui,axios,nprogress`
+若不适用 `this.$ui.pages.fetch` 方法发送 ajax 请求则可以不引用 `axios`
+若不需要线上顶部进度条则可以不引用 `nprogress`
 
 ```js
-import MeAdminSdk from 'me-admin-sdk'
-MeAdminSdk.register(options)
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+
+// <script src="./me-admin-sdk-full.js"></script>
+<script src="https://unpkg.com/me-admin-sdk/dist/me-admin-sdk-full.js"></script>
+<script type="text/javascript">
+      MeAdminSdk.register(options)
+</script>
 ```
 
 ## 组件版
@@ -27,25 +38,7 @@ MeAdminSdk.register(options)
 <script src="https://unpkg.com/element-ui@2.7.0/lib/index.js"></script>
 <script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
 <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
-<script src="./me-admin-sdk-mini.js"></script>
-<script type="text/javascript">
-      MeAdminSdk.register(options)
-</script>
-```
-
-## 完整版
-
-将依赖的 vue 全家桶及所有依赖的包一并打包到一个文件
-
-相关依赖：`vue,vuex,vue-router,element-ui,axios,nprogress`
-若不适用 `this.$ui.pages.fetch` 方法发送 ajax 请求则可以不引用 `axios`
-若不需要线上顶部进度条则可以不引用 `nprogress`
-
-```js
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
-
-<script src="./me-admin-sdk-full.js"></script>
+<script src="https://unpkg.com/me-admin-sdk/dist/me-admin-sdk.js"></script>
 <script type="text/javascript">
       MeAdminSdk.register(options)
 </script>
