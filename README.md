@@ -4,6 +4,34 @@
 
 示例：[完整版](https://yimogit.github.io/me-admin-sdk/example/html/full.html) [无依赖版本](https://yimogit.github.io/me-admin-sdk/example/html/mini.html)
 
+## npm 包
+
+安装：`npm install --save me-admin-sdk`
+
+项目引用
+
+```js
+import 'element-ui/lib/theme-chalk/index.css' // element-ui样式
+import 'nprogress/nprogress.css' // Progress 进度条样式
+import MeAdminSdk from 'me-admin-sdk'
+MeAdminSdk.register(options)
+```
+
+vue.config.js 设置
+
+```js
+module.exports = {
+  //...
+  configureWebpack: {
+    resolve: {
+      alias: {
+        vue$: 'vue/dist/vue.esm.js'
+      }
+    }
+  }
+  //...
+}
+```
 
 ## 完整版
 
@@ -48,8 +76,8 @@
 
 ```js
 {
-  //要绑定的节点
-  el: '#app',
+  //要绑定的节点,若需要自定义实例则传递 {el:null}
+  el: '#app',//自定义 vue 实例 {el:null}
   //vue实例
   currentAppKey: '__currentApp',
   // vue路由

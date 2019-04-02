@@ -6,7 +6,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const nodeEnv = process.env.NODE_ENV
 const isMini = process.env.PACKAGE_MINI === 'true'
 module.exports = {
-  entry: nodeEnv === 'production' ? './src/index.js' : './example/vue/main.js',
+  entry: nodeEnv === 'production' ? './src/index.js' : './example/dev/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',

@@ -1,5 +1,5 @@
 localStorage.IS_HASH_MODE = true
-const Layout = { template: '<v-layout/>' }
+var Layout = { template: '<v-layout/>' }
 window.sdkOptions = {
   //绑定节点
   el: '#app',

@@ -4,7 +4,7 @@ import store from './store'
 import router from './router'
 import Vue from 'vue'
 
-export function register(globalOptions, initCallback) {
+export function register(globalOptions) {
   globalOptions = Object.assign(
     {
       //绑定节点
@@ -47,12 +47,17 @@ export function register(globalOptions, initCallback) {
     store.dispatch('setSysInfo', globalOptions.sysInfo)
   }
   _extends.register()
-
-  window[globalOptions.currentAppKey] = new Vue({
-    router,
-    store,
-    render: h => h(App)
-  }).$mount(globalOptions.el)
+  if (globalOptions.el) {
+    window[globalOptions.currentAppKey] = new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount(globalOptions.el)
+  }
+  if (typeof window !== 'undefined' && typeof window.Vue === 'undefined') {
+    window.Vue = Vue
+  }
+  return { router, store }
 }
 export default {
   register
