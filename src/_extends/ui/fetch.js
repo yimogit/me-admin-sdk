@@ -4,7 +4,7 @@ import { warn } from './pages'
 const instance =
   axios &&
   axios.create({
-    baseURL: '', // api的base_url
+    // baseURL: '', // api的base_url
     timeout: 10000 // 请求超时时间
     // transformRequest: data => qs.stringify(data)
   })
@@ -49,7 +49,7 @@ instance &&
 
 export default instance
 
-export function get(url, opt) {
+export function get(url, params, opt) {
   if (!instance) {
     throw new Error('axios not found')
   }
@@ -57,14 +57,14 @@ export function get(url, opt) {
     Object.assign(
       {
         url: url,
-        methods: 'GET',
-        params: {}
+        method: 'GET',
+        params: params
       },
       opt
     )
   )
 }
-export function post(url, opt) {
+export function post(url, data, opt) {
   if (!instance) {
     throw new Error('axios not found')
   }
@@ -72,8 +72,8 @@ export function post(url, opt) {
     Object.assign(
       {
         url: url,
-        methods: 'POST',
-        data: {}
+        method: 'POST',
+        data: data
       },
       opt
     )

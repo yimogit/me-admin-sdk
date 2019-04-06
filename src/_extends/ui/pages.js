@@ -91,6 +91,17 @@ export function hideProgress() {
 //#endregion
 
 //#region 辅助方法
+
+export function getDownloadUrl(imgUrl) {
+  if (!imgUrl) return imgUrl
+  if (imgUrl.indexOf('http') === 0 || imgUrl.indexOf('//') === 0) {
+    return imgUrl
+  } else if (typeof window !== 'undefined' && window.previwFileUrl) {
+    return window.previwFileUrl + imgUrl
+  }
+  return imgUrl
+}
+
 /**
  * 动态加载JS
  * @param {string} url 脚本地址

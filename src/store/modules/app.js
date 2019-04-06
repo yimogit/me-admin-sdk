@@ -27,7 +27,8 @@ const appStore = {
     iconList: state => state.iconList,
     indexPath: state => state.indexPath,
     loginPath: state => state.loginPath,
-    logoutPath: state => state.logoutPath
+    logoutPath: state => state.logoutPath,
+    form_label_width: state => window.innerWidth > 600 ? '200px' : 'auto'
   },
   mutations: {
     REMOVE_NAV_TAB_KEY: (state, value) => {

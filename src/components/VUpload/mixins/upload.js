@@ -32,11 +32,13 @@ export default {
   },
   data() {
     return {
-      acceptValue: !this.isFile && !this.accept ? 'image/*' : this.accept,
-      uploadAction: this.$api.common.upload
+      acceptValue: !this.isFile && !this.accept ? 'image/*' : this.accept
     }
   },
   methods: {
+    uploadAction(fromData, category) {
+      return this.$store.dispatch('uploadAction', { fromData, category })
+    },
     beforeUpload(file) {
       const isLt = file.size / 1024 / 1024 < this.maxSize
       if (!isLt) {

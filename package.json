@@ -1,7 +1,7 @@
 {
   "name": "me-admin-sdk",
   "description": "一个真正开箱即用的后台管理系统模板",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "易墨 <wsyimo@qq.com>",
   "license": "MIT",
   "private": false,
@@ -54,7 +54,6 @@
     "express-mockjs": "^0.4.9",
     "file-loader": "^3.0.1",
     "node-sass": "^4.9.0",
-    "object-assign": "^4.1.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss": "^7.0.14",
     "sass-loader": "^7.0.1",

@@ -12,14 +12,21 @@
     :before-upload="beforeUpload"
     :on-exceed="handleLimit"
   >
-    <el-button size="small" type="primary" v-if="isFile">
+    <el-button
+      size="small"
+      type="primary"
+      v-if="isFile"
+    >
       <i class="el-icon-plus"></i>点击上传
     </el-button>
-    <i class="el-icon-plus" v-else></i>
+    <i
+      class="el-icon-plus"
+      v-else
+    ></i>
   </el-upload>
 </template>
 <script>
-import Upload from './mixins/upload'
+import Upload from "./mixins/upload";
 export default {
   mixins: [Upload],
   props: {
@@ -29,63 +36,62 @@ export default {
     return {
       fileList: [],
       currentValue: this.value || [],
-      dialogImageUrl: '',
-      uploadAction: this.$api.common.upload
-    }
+      dialogImageUrl: ""
+    };
   },
   watch: {
     value(val) {
-      this.currentValue = val || []
+      this.currentValue = val || [];
     },
     currentValue(val) {
       this.fileList = val.map((e, i) => {
-        return { name: i, url: this.$ui.pages.getDownloadUrl(e) }
-      })
+        return { name: i, url: this.$ui.pages.getDownloadUrl(e) };
+      });
     }
   },
   methods: {
     beforeUpload(file) {
-      const isLt = file.size / 1024 / 1024 < this.maxSize
+      const isLt = file.size / 1024 / 1024 < this.maxSize;
       if (!isLt) {
-        this.$ui.pages.warn('上传文件大小不能超过 ' + this.maxSize + 'MB!')
-        return isLt
+        this.$ui.pages.warn("上传文件大小不能超过 " + this.maxSize + "MB!");
+        return isLt;
       }
-      return true
+      return true;
     },
     uploadImg(e) {
-      const _this = this
-      _this.$ui.pages.showProgress()
-      var formData = new FormData()
-      formData.append(_this.formName, e.file) // 文件对象
+      const _this = this;
+      _this.$ui.pages.showProgress();
+      var formData = new FormData();
+      formData.append(_this.formName, e.file); // 文件对象
       _this
         .uploadAction(formData, _this.category)
         .then(res => {
           if (res.status !== 1) {
-            return _this.$ui.pages.warn(res.msg)
+            return _this.$ui.pages.warn(res.msg);
           }
-          const tempValue = _this.currentValue
+          const tempValue = _this.currentValue;
           _this.fileList.push({
             name: res.data,
             url: res.data
-          })
-          tempValue.push(res.data)
-          _this.$emit('input', tempValue)
-          _this.$ui.pages.hideProgress()
+          });
+          tempValue.push(res.data);
+          _this.$emit("input", tempValue);
+          _this.$ui.pages.hideProgress();
         })
         .catch(e => {
-          _this.$ui.pages.hideProgress()
-        })
+          _this.$ui.pages.hideProgress();
+        });
     },
     handleRemove(file, fileList) {
-      const tempValue = this.currentValue.filter((e, i) => i !== file.name)
-      this.$emit('input', tempValue)
+      const tempValue = this.currentValue.filter((e, i) => i !== file.name);
+      this.$emit("input", tempValue);
     },
     handlePictureCardPreview(file) {
-      window.open(this.$ui.pages.getDownloadUrl(file.url))
+      window.open(this.$ui.pages.getDownloadUrl(file.url));
     },
     handleLimit() {
-      this.$ui.pages.warn('最多上传' + this.limit + '个文件')
+      this.$ui.pages.warn("最多上传" + this.limit + "个文件");
     }
   }
-}
+};
 </script>
