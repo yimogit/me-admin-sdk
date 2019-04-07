@@ -118,21 +118,6 @@ const { router, store } = register({
       ]
     },
     {
-      name: 'redirect_data',
-      path: '/redirect',
-      component: {
-        beforeCreate() {
-          var route = JSON.parse(
-            decodeURIComponent(this.$route.query.data) || '{}'
-          )
-          this.$ui.pages.link(route)
-        },
-        render: function(h) {
-          return h() // avoid warning message
-        }
-      }
-    },
-    {
       path: '/system',
       component: Layout,
       children: [

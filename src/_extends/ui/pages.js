@@ -16,7 +16,7 @@ export const link = (route, isReplace) => {
   if (!route) return
   if (
     typeof route === 'string' &&
-    (route.indexOf('http') > -1 || route.indexOf('//') > -1)
+    (route.indexOf('http') === 0 || route.indexOf('//') === 0)
   ) {
     return (location.href = route)
   }

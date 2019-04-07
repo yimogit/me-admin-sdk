@@ -57,29 +57,24 @@ MeAdminSdk.register({
       },
       {
         menuId: '859a87df80ac47559e27317f2023b69e',
-        menuName: '商品管理',
+        menuName: '链接管理',
         menuIcon: 'iconfont icon-goods',
         menuCode: null,
         children: [
           {
             menuId: 'c64669ba96f64748aa3f9e073883ec6b',
-            menuName: '商品列表',
+            menuName: '百度',
             menuIcon: null,
-            menuCode: 'goods_goods_list',
+            menuCode: '',
+            menuUrl: '/webview?url=https%3A%2F%2Fwww.baidu.com%2F',
             children: null
           },
           {
-            menuId: '7fe242078ecb4e4fb96e7881b8b68c6d',
-            menuName: '商品分类列表',
+            menuId: 'c64669ba96f64748233f9e073883ec6b',
+            menuName: '1xy2',
             menuIcon: null,
-            menuCode: 'goods_category_list',
-            children: null
-          },
-          {
-            menuId: 'cbfb92370f834cc8a9d9c1df065c858d',
-            menuName: '商品规格列表',
-            menuIcon: null,
-            menuCode: 'goods_spec_list',
+            menuCode: '',
+            menuUrl: '/webview?url=https%3A%2F%2Fwww.1xy2.com%2F',
             children: null
           }
         ]
@@ -117,21 +112,6 @@ MeAdminSdk.register({
       ]
     },
     {
-      name: 'redirect_data',
-      path: '/redirect',
-      component: {
-        beforeCreate() {
-          var route = JSON.parse(
-            decodeURIComponent(this.$route.query.data) || '{}'
-          )
-          this.$ui.pages.link(route)
-        },
-        render: function(h) {
-          return h() // avoid warning message
-        }
-      }
-    },
-    {
       path: '/system',
       component: Layout,
       children: [
@@ -156,8 +136,8 @@ MeAdminSdk.register({
           },
           meta: {
             cache: true,
-            title: '管理员创建',
-            pname: 'system_admin_list'
+            title: '管理员创建'
+            // pname: 'system_admin_list'
           }
         }
       ]
