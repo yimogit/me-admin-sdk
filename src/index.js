@@ -4,6 +4,8 @@ import store from './store'
 import router from './router'
 import Vue from 'vue'
 
+export const VERSION = process.env.VERSION
+
 export function register(globalOptions) {
   globalOptions = Object.assign(
     {
@@ -57,6 +59,7 @@ export function register(globalOptions) {
   if (typeof window !== 'undefined' && typeof window.Vue === 'undefined') {
     window.Vue = Vue
   }
+  // console.log(process.env.VERSION)
   return { router, store }
 }
 export default {

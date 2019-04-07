@@ -5,6 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const nodeEnv = process.env.NODE_ENV
 const isMini = process.env.PACKAGE_MINI === 'true'
+const version = JSON.stringify(require('./package.json').version)
 module.exports = {
   entry: nodeEnv === 'production' ? './src/index.js' : './example/dev/main.js',
   output: {
@@ -140,9 +141,20 @@ module.exports = {
     hints: false
   },
   devtool: '#eval-source-map',
-  plugins: [new VueLoaderPlugin()]
+  plugins: [
+    new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        VERSION: version
+      }
+    })
+  ]
 }
-console.log({ nodeEnv: nodeEnv, isMini: isMini })
+console.log({
+  nodeEnv: nodeEnv,
+  isMini: isMini,
+  version: version
+})
 if (nodeEnv === 'production') {
   const Terser = require('terser')
   const Postcss = require('postcss')
@@ -169,7 +181,8 @@ if (nodeEnv === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"' + process.env.NODE_ENV + '"'
+        NODE_ENV: '"' + process.env.NODE_ENV + '"',
+        VERSION: version
       }
     }),
     new webpack.LoaderOptionsPlugin({
