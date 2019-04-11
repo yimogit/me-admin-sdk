@@ -350,6 +350,7 @@ export default {
   bottom: 0;
   overflow: auto;
   padding: 15px;
+  padding-bottom:0;
 }
 .layout-main-content-mobile {
   width: 100%;

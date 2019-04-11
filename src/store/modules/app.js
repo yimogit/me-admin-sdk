@@ -13,7 +13,7 @@ const appStore = {
     sysTheme: '#409EFF',
     indexPath: '/',
     loginPath: '/login',
-    logoutPath: '/logout',
+    logoutPath: '/logout'
   },
   getters: {
     removeNavTab: state => state.removeNavTab,
@@ -28,7 +28,7 @@ const appStore = {
     indexPath: state => state.indexPath,
     loginPath: state => state.loginPath,
     logoutPath: state => state.logoutPath,
-    form_label_width: state => window.innerWidth > 600 ? '200px' : 'auto'
+    form_label_width: state => (window.innerWidth > 600 ? '200px' : 'auto')
   },
   mutations: {
     REMOVE_NAV_TAB_KEY: (state, value) => {
@@ -43,9 +43,8 @@ const appStore = {
       if (!routeName || state.cacheViews.indexOf(routeName) === -1) {
         return
       }
-      for (const i of state.cacheViews) {
-        if (i === routeName) {
-          const index = state.cacheViews.indexOf(i)
+      for (let index = 0; index < state.cacheViews.length; index++) {
+        if (state.cacheViews[index] === routeName) {
           state.cacheViews.splice(index, 1)
           break
         }

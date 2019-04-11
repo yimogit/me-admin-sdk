@@ -132,7 +132,7 @@ MeAdminSdk.register({
           name: 'system_admin_create',
           component: {
             name: 'system_admin_create',
-            template: '<div>管理员创建<v-form-input/></div>'
+            template: '<div>管理员创建<v-form-input/><el-button type="primary">23333</el-button><el-button type="primary" >保存</el-button></div>'
           },
           meta: {
             cache: true,

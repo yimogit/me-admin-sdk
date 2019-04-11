@@ -178,3 +178,6 @@ export function genRandomId() {
     S4()
   ).toLowerCase()
 }
+export function isIe() {
+  return !!window.ActiveXObject || 'ActiveXObject' in window
+}

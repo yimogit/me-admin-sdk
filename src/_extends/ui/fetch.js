@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { warn } from './pages'
+import { warn, isIe } from './pages'
 // import qs from 'qs'
 const instance =
   axios &&
@@ -15,6 +15,9 @@ instance &&
       e.url = e.url
       e.params = e.params || {}
       e.headers = e.headers || {}
+      if (isIe()) {
+        e.params.ieajaxnow = Date.now()
+      }
       return e
     },
     error => ({ status: 0, msg: error.message })

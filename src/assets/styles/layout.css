@@ -70,6 +70,7 @@ body {
   border-top: 1px solid #cccccc;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin-bottom: 0;
 }
 
 .custom-input-help {
