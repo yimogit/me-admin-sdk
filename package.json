@@ -1,7 +1,7 @@
 {
   "name": "me-admin-sdk",
   "description": "一个真正开箱即用的后台管理系统模板",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "易墨 <wsyimo@qq.com>",
   "license": "MIT",
   "private": false,
