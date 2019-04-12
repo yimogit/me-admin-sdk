@@ -8,10 +8,12 @@
 </template>
 
 <script>
+const version = require('element-ui/package.json').version
 const DEFAULT_THEME = "#409EFF"; // default color
 export default {
   data() {
     return {
+      chalk: "",
       theme: DEFAULT_THEME,
       predefineColors: ["#409EFF", "#3EBBB1", "#BB963E"]
     };
@@ -31,6 +33,32 @@ export default {
       localStorage.customThemeColor = val;
       const themeCluster = this.getThemeCluster(val.replace("#", ""));
       const originalCluster = this.getThemeCluster(oldVal.replace("#", ""));
+      const getHandler = (variable, id) => {
+        return () => {
+          const originalCluster = this.getThemeCluster(
+            DEFAULT_THEME.replace("#", "")
+          );
+          const newStyle = this.updateStyle(
+            this[variable],
+            originalCluster,
+            themeCluster
+          );
+          let styleTag = document.getElementById(id);
+          if (!styleTag) {
+            styleTag = document.createElement("style");
+            styleTag.setAttribute("id", id);
+            document.head.appendChild(styleTag);
+          }
+          styleTag.innerText = newStyle;
+        };
+      };
+      const chalkHandler = getHandler("chalk", "chalk-style");
+      if (!this.chalk) {
+        const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`;
+        this.getCSSString(url, chalkHandler, "chalk");
+      } else {
+        chalkHandler();
+      }
       const styles = [].slice
         .call(document.querySelectorAll("style"))
         .filter(style => {
@@ -76,6 +104,17 @@ export default {
         newStyle = newStyle.replace(new RegExp(color, "ig"), newCluster[index]);
       });
       return newStyle;
+    },
+    getCSSString(url, callback, variable) {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          this[variable] = xhr.responseText.replace(/@font-face{[^}]+}/, "");
+          callback();
+        }
+      };
+      xhr.open("GET", url);
+      xhr.send();
     },
     getThemeCluster(theme) {
       const tintColor = (color, tint) => {
