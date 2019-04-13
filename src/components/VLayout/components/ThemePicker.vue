@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const version = require('element-ui/package.json').version
+const version = require("element-ui/package.json").version;
 const DEFAULT_THEME = "#409EFF"; // default color
 export default {
   data() {
@@ -54,7 +54,14 @@ export default {
       };
       const chalkHandler = getHandler("chalk", "chalk-style");
       if (!this.chalk) {
-        const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`;
+        var url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`;
+        if (location.host) {
+          url =
+            [].slice
+              .call(document.querySelectorAll("link"))
+              .map(s => s.href)
+              .find(s => s.indexOf("element-ui/index.css") > 0) || url;
+        }
         this.getCSSString(url, chalkHandler, "chalk");
       } else {
         chalkHandler();
