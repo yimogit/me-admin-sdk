@@ -3,6 +3,7 @@ import MeAdminSdk from '../../src/index.js'
 // Element-UI 样式
 import 'element-ui/lib/theme-chalk/index.css'
 import 'nprogress/nprogress.css' // Progress 进度条样式
+import testRouter from './test'
 const Layout = { template: '<v-layout/>' }
 // Vue.use(MeAdminSdk, {
 MeAdminSdk.register({
@@ -31,6 +32,13 @@ MeAdminSdk.register({
         menuName: '控制台',
         menuIcon: 'iconfont icon-dashboard',
         menuCode: 'home',
+        children: null
+      },
+      {
+        menuId: 'test',
+        menuName: '测试',
+        menuIcon: 'iconfont icon-dashboard',
+        menuCode: 'test',
         children: null
       },
       {
@@ -111,6 +119,7 @@ MeAdminSdk.register({
         }
       ]
     },
+    testRouter,
     {
       path: '/system',
       component: Layout,
@@ -132,7 +141,8 @@ MeAdminSdk.register({
           name: 'system_admin_create',
           component: {
             name: 'system_admin_create',
-            template: '<div>管理员创建<v-form-input/><el-button type="primary">23333</el-button><el-button type="primary" >保存</el-button></div>'
+            template:
+              '<div>管理员创建<v-form-input/><el-button type="primary">23333</el-button><el-button type="primary" >保存</el-button></div>'
           },
           meta: {
             cache: true,
