@@ -14,6 +14,27 @@
 import 'element-ui/lib/theme-chalk/index.css' // element-ui样式
 import 'nprogress/nprogress.css' // Progress 进度条样式
 import MeAdminSdk from 'me-admin-sdk'
+//注册api接口
+//调用：this.$api.test.getInfo()
+MeAdminSdk.registerApi('test', function(fetch) {
+  return {
+    getInfo(params) {
+      return request({
+        url: '/getinfo',
+        method: 'get',
+        params: params,
+        data: {}
+      })
+    }
+  }
+})
+//注册codes,一些通用方法
+//调用：this.$codes.index_path
+MeAdminSdk.registerCodes(null, function() {
+  return {
+    index_path: '/'
+  }
+})
 MeAdminSdk.register(options)
 ```
 

@@ -34,6 +34,13 @@
           }
         }
       })
+      MeAdminSdk.registerCodes(null, function() {
+        return {
+          index_path: '/',
+          login_path: '/login',
+          default_date_format: 'yyyy-MM-dd'
+        }
+      })
       var vueApp = MeAdminSdk.register({
         el: null, //'#app'
         // 系统信息
@@ -94,7 +101,7 @@
                 name: 'home',
                 component: {
                   template:
-                    '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button></div>'
+                    '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button><div>首页路径：{{$codes.index_path}}</div></div>'
                 },
                 meta: { auth: true, title: '首页' }
               },
