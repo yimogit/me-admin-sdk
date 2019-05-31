@@ -9,9 +9,31 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      localStorage.IS_HASH_MODE = true
+    </script>
     <script src="../../dist/me-admin-sdk-full.js"></script>
     <script>
       var Layout = { template: '<v-layout/>' }
+      MeAdminSdk.registerApi('mission', function(request) {
+        return {
+          getMissionList(params) {
+            return request({
+              url: '/mission/mission/list',
+              method: 'get',
+              params: params,
+              data: {}
+            })
+          },
+          getMissionStatistics(params) {
+            return request({
+              url: '/mission/mission/statistics',
+              method: 'get',
+              params: params
+            })
+          }
+        }
+      })
       var vueApp = MeAdminSdk.register({
         el: null, //'#app'
         // 系统信息
@@ -161,7 +183,7 @@
         el: '#app',
         router: vueApp.router,
         store: vueApp.store,
-        template:'<router-view></router-view>'
+        template: '<router-view></router-view>'
         // render: res.render,
         // staticRenderFns: res.staticRenderFns
       })

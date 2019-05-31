@@ -3,8 +3,28 @@ import _extends from './_extends'
 import store from './store'
 import router from './router'
 import Vue from 'vue'
+import fetch from './_extends/ui/fetch'
+
+var $api = {}
+var $codes = {}
 
 export const VERSION = process.env.VERSION
+//注册通用的api接口模块,可通过$api.模块名.配置调用
+export function registerApi(moduleName, apiInit) {
+  if (moduleName) {
+    $api[moduleName] = Object.assign({}, $api[moduleName], apiInit(fetch))
+  } else {
+    Object.assign($api, apiInit(fetch))
+  }
+}
+//注册一些通用的方法
+export function registerCodes(moduleName, apiInit) {
+  if (moduleName) {
+    $codes[moduleName] = Object.assign({}, $codes[moduleName], apiInit())
+  } else {
+    Object.assign($codes, apiInit())
+  }
+}
 
 export function register(globalOptions) {
   globalOptions = Object.assign(
@@ -48,7 +68,7 @@ export function register(globalOptions) {
   if (globalOptions.sysInfo) {
     store.dispatch('setSysInfo', globalOptions.sysInfo)
   }
-  _extends.register()
+  _extends.register({ $api, $codes })
   if (globalOptions.el) {
     window[globalOptions.currentAppKey] = new Vue({
       router,

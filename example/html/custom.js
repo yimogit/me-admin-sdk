@@ -1,5 +1,33 @@
 localStorage.IS_HASH_MODE = true
 var Layout = { template: '<v-layout/>' }
+
+MeAdminSdk.registerApi('mission', function(request) {
+  return {
+    getMissionList(params) {
+      return request({
+        url: '/mission/mission/list',
+        method: 'get',
+        params: params,
+        data: {}
+      })
+    },
+    getMissionStatistics(params) {
+      return request({
+        url: '/mission/mission/statistics',
+        method: 'get',
+        params: params
+      })
+    }
+  }
+})
+MeAdminSdk.registerCodes(null, function() {
+  return {
+    index_path: '/',
+    login_path: '/login',
+    default_date_format: 'yyyy-MM-dd'
+  }
+})
+
 window.sdkOptions = {
   //绑定节点
   el: '#app',
@@ -64,7 +92,7 @@ window.sdkOptions = {
           name: 'home',
           component: {
             template:
-              '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button></div>'
+              '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button><div>首页路径：{{$codes.index_path}}</div></div>'
           },
           meta: { auth: true, title: '首页' }
         },
