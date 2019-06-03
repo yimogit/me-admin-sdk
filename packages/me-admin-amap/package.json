@@ -1,41 +1,31 @@
 {
-  "name": "me-admin-sdk",
-  "description": "一个真正开箱即用的后台管理系统模板",
-  "version": "0.0.8",
+  "name": "me-admin-amap",
+  "description": "一个用于选中坐标的高德地图选择弹窗，基于Element-UI",
+  "version": "0.0.2",
   "author": "易墨 <wsyimo@qq.com>",
   "license": "MIT",
   "private": false,
   "keywords": [
     "vue",
-    "vue-router",
-    "vue-admin",
-    "vue-template",
-    "element-ui",
-    "me-admin-template"
+    "amap",
+    "element-ui"
   ],
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 20002",
+    "build": "cross-env NODE_ENV=production PACKAGE_MINI=true webpack --mode production --progress --hide-modules"
+  },
   "files": [
     "dist",
     "example"
   ],
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server  --mode development --open --hot --port 20000",
-    "build:full": "cross-env NODE_ENV=production webpack --mode production --progress --hide-modules",
-    "build:mini": "cross-env NODE_ENV=production PACKAGE_MINI=true webpack --mode production --progress --hide-modules",
-    "build": "npm run build:mini&&npm run build:full",
-    "mock": "node mock-server/index.js --port 2233"
-  },
-  "main": "dist/me-admin-sdk.js",
+  "main": "dist/me-admin-amap.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/yimogit/me-admin-sdk"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "element-ui": "^2.7.0",
-    "nprogress": "^0.2.0",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.2",
-    "vuex": "^3.1.0"
+    "element-ui": "^2.7.0"
   },
   "browserslist": [
     "> 1%",
