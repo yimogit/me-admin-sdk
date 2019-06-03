@@ -173,7 +173,7 @@ export default {
       this.remoteLoad(
         `${protocolPrefx}//webapi.amap.com/maps?v=1.4.0&key=${this.mapKey}`
       ).then(res => {
-        this.remoteLoad(`${protocolPrefx}webapi.amap.com/ui/1.0/main.js`).then(
+        this.remoteLoad(`${protocolPrefx}//webapi.amap.com/ui/1.0/main.js`).then(
           res2 => {
             this.initMap();
           }
