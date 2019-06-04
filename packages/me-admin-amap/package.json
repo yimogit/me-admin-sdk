@@ -1,7 +1,7 @@
 {
   "name": "me-admin-amap",
   "description": "一个用于选中坐标的高德地图选择弹窗，基于Element-UI",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "易墨 <wsyimo@qq.com>",
   "license": "MIT",
   "private": false,
