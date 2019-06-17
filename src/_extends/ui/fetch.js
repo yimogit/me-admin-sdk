@@ -41,6 +41,7 @@ instance &&
       const err = { status: 0, msg: '服务器异常' }
       var msg = error.message || ''
       var status = error.request && error.request.status
+      // console.log(error.request, msg, status)
       if (
         status === 403 ||
         status === 401 ||
@@ -50,11 +51,13 @@ instance &&
         err.msg = '权限校验失败，请重新登录'
         if (
           location.pathname &&
-          location.pathname.indexOf(store.getters.loginPath) === -1
+          location.pathname.indexOf(store.getters.loginPath) === -1 &&
+          window.isLogouting === undefined
         ) {
+          window.isLogouting = true
           setTimeout(() => {
             confirm('是否重新登录？').then(res => {
-              link(store.getters.loginPath)
+              location.href = store.getters.loginPath
             })
           }, 1000)
         }
