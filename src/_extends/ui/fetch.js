@@ -39,19 +39,25 @@ instance &&
     },
     error => {
       const err = { status: 0, msg: '服务器异常' }
+      var msg = error.message || ''
+      var status = error.request && error.request.status
       if (
-        error.message &&
-        (error.message.indexOf('403') > -1 || error.message.indexOf('401') > -1)
+        status === 403 ||
+        status === 401 ||
+        msg.indexOf('403') > -1 ||
+        msg.indexOf('401') > -1
       ) {
         err.msg = '权限校验失败，请重新登录'
-        if (location.pathname && location.pathname.indexOf('login') > -1) {
-          return Promise.reject(err)
+        if (
+          location.pathname &&
+          location.pathname.indexOf(store.getters.loginPath) === -1
+        ) {
+          setTimeout(() => {
+            confirm('是否重新登录？').then(res => {
+              link(store.getters.loginPath)
+            })
+          }, 1000)
         }
-        setTimeout(() => {
-          confirm('是否重新登录？').then(res => {
-            link(store.getters.logoutPath)
-          })
-        }, 1000)
       }
       warn(err.msg)
       console.log('err' + error) // for debug
