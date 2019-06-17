@@ -54,6 +54,7 @@ const appStore = {
     },
     CLEAR_CACHE_VIEW: state => {
       state.cacheViews = []
+      sessionStorage.CurrentPageTabs = '[]'
     },
     SET_SYS_INFO: (state, sysInfo) => {
       state.sysTitle = sysInfo.title || state.sysTitle

@@ -80,6 +80,9 @@ export default {
     handleClick(e) {
       if (e === "disabledTab") {
         localStorage.DISABLE_TAB = !this.disabledTab;
+        if (!this.disabledTab) {
+          this.$store.dispatch("clearCacheView");
+        }
         location.reload();
       } else if (e === "logout") {
         this.logout();

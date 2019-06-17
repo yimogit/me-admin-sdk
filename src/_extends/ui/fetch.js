@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { warn, isIe } from './pages'
+import { warn, isIe, confirm, link } from './pages'
+import store from '../../store'
 // import qs from 'qs'
 const instance =
   axios &&
@@ -43,6 +44,14 @@ instance &&
         (error.message.indexOf('403') > -1 || error.message.indexOf('401') > -1)
       ) {
         err.msg = '权限校验失败，请重新登录'
+        if (location.pathname && location.pathname.indexOf('login') > -1) {
+          return Promise.reject(err)
+        }
+        setTimeout(() => {
+          confirm('是否重新登录？').then(res => {
+            link(store.getters.logoutPath)
+          })
+        }, 1000)
       }
       warn(err.msg)
       console.log('err' + error) // for debug

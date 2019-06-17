@@ -138,13 +138,13 @@ export default {
   watch: {
     pageTabs: {
       handler(val) {
-        localStorage.CurrentPageTabs = JSON.stringify(val);
+        sessionStorage.CurrentPageTabs = JSON.stringify(val);
       }
     },
     $route: {
       handler(val) {
-        if (this.pageTabs.length === 0 && localStorage.CurrentPageTabs) {
-          this.pageTabs = JSON.parse(localStorage.CurrentPageTabs || "[]");
+        if (this.pageTabs.length === 0 && sessionStorage.CurrentPageTabs) {
+          this.pageTabs = JSON.parse(sessionStorage.CurrentPageTabs || "[]");
         }
         if (val.name === "redirect_data") {
           return;
@@ -316,7 +316,6 @@ export default {
           this.removeTab(this.selectTab.tabKey);
           break;
         case "closeOthers":
-          localStorage.CurrentPageTabs = "[]";
           this.pageTabs = [];
           this.$store.dispatch("clearCacheView");
           this.$ui.pages.link(
@@ -325,7 +324,6 @@ export default {
           );
           break;
         case "closeAll":
-          localStorage.CurrentPageTabs = "[]";
           this.pageTabs = [];
           this.$store.dispatch("clearCacheView");
           this.$ui.pages.link(
