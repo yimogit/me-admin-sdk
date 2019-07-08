@@ -23,6 +23,10 @@
 
 <script>
 export default {
+  name: "comps-upload",
+  meta: {
+    title: "文件上传"
+  },
   data() {
     return {
       uploadSingleValue: '',

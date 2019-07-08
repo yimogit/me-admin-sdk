@@ -52,6 +52,10 @@
 
 <script>
 export default {
+  name: "comps-select",
+  meta: {
+    title: "下拉框"
+  },
   data() {
     return {
       roleFunc: () =>
@@ -66,10 +70,10 @@ export default {
                 { text: "JLDL", value: "jldl", children: null }
               ]
             });
-          }, 5000);
+          }, 2000);
         }),
       role0: null,
-      role1: 2,
+      role1: 1,
       role2: [],
       role3: [],
       role4: "1,2"
