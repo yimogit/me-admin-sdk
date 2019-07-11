@@ -16,7 +16,9 @@ instance &&
       e.url = e.url
       e.params = e.params || {}
       e.headers = e.headers || {}
+      e.headers['X-Requested-With'] = 'XMLHttpRequest'
       if (isIe()) {
+        //使得每次请求的url不一样
         e.params.ieajaxnow = Date.now()
       }
       return e

@@ -115,7 +115,7 @@ module.exports = {
     //登录名
     authName: '超级管理员',
     //系统标题
-    title: 'XXXX后台管理系统',
+    sysTitle: 'XXXX后台管理系统',
     //菜单图标列表
     iconList: ['iconfont icon-system','el-icon-info'],//手动引入图标库，传入其class名
     //菜单

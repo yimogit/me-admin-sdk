@@ -66,8 +66,8 @@ MeAdminSdk.register({
   // 系统信息
   sysInfo: {
     authName: '管理员',
-    title: 'XXX后台管理系统',
-    logo: '',
+    sysTitle: 'XXX后台管理系统',
+    sysLogo: '',
     iconList: [],
     menus: [
       {
@@ -76,6 +76,28 @@ MeAdminSdk.register({
         menuIcon: 'el-icon-menu',
         menuCode: 'home',
         children: null
+      },
+      {
+        menuId: '博客',
+        menuName: '博客',
+        menuIcon: 'el-icon-menu',
+        menuCode: '',
+        children: [
+          {
+            menuId: '个人博客',
+            menuName: '个人博客',
+            menuCode: '',
+            children: [
+              {
+                menuId: 'test3',
+                menuName: '易墨博客',
+                menuIcon: null,
+                menuUrl: '/webview?url=http://www.yimo.link/',
+                children: null
+              }
+            ]
+          }
+        ]
       },
       {
         menuId: '4ae619b2e52d4f2daa80674603a16b2a',

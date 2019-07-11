@@ -23,8 +23,8 @@ const { router, store } = register({
   // 系统信息
   sysInfo: {
     authName: '管理员',
-    title: 'XXX后台管理系统',
-    logo: '',
+    sysTitle: 'XXX后台管理系统',
+    sysLogo: '',
     iconList: [],
     menus: [
       {

@@ -27,10 +27,7 @@ const appStore = {
     iconList: state => state.iconList,
     indexPath: state => state.indexPath,
     loginPath: state => state.loginPath,
-    logoutPath: state => state.logoutPath,
-    form_label_width: state => (window.innerWidth > 600 ? '200px' : 'auto'),
-    form_label_cwidth: state =>
-      window.innerWidth > 600 ? window.innerWidth / 3 + 'px' : 'auto'
+    logoutPath: state => state.logoutPath
   },
   mutations: {
     REMOVE_NAV_TAB_KEY: (state, value) => {
@@ -57,8 +54,8 @@ const appStore = {
       sessionStorage.CurrentPageTabs = '[]'
     },
     SET_SYS_INFO: (state, sysInfo) => {
-      state.sysTitle = sysInfo.title || state.sysTitle
-      state.sysLogo = sysInfo.logo || state.sysLogo
+      state.sysTitle = sysInfo.sysTitle || state.sysTitle
+      state.sysLogo = sysInfo.sysLogo || state.sysLogo
       state.authName = sysInfo.authName || state.authName
       state.sysMenus = sysInfo.menus || []
       state.modules = sysInfo.modules || []

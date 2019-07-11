@@ -52,6 +52,7 @@ export default {
         this.$store.getters.sysMenus,
         arr
       );
+      console.log(arr.map(e => e.menuId)[0])
       return arr.map(e => e.menuId)[0];
     }
   }

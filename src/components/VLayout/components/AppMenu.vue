@@ -10,13 +10,21 @@
           <i :class="item.menuIcon"></i>
           <span slot="title" class="left-menu--text">{{item.menuName}}</span>
         </template>
-        <v-app-menu :menus="item.children"/>
+        <v-app-menu :menus="item.children" v-if="item.children"/>
       </el-submenu>
       <el-menu-item
         v-else-if="item.menuCode||item.menuUrl"
         :key="'p_s_'+index"
         :index="String(item.menuId)"
         @click="openLink(item)"
+      >
+        <i :class="item.menuIcon"></i>
+        <span slot="title" class="left-menu--text">{{item.menuName}}</span>
+      </el-menu-item>
+      <el-menu-item
+        v-else-if="item.menuName"
+        :key="'p_s_'+index"
+        :index="String(item.menuId)"
       >
         <i :class="item.menuIcon"></i>
         <span slot="title" class="left-menu--text">{{item.menuName}}</span>
