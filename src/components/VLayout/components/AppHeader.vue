@@ -30,7 +30,16 @@
       style="float:right"
     >
       <v-theme-picker />
+
+      <el-button
+        type="text"
+        v-if="!showDropFunc"
+      >
+        {{$store.getters.authName}}
+        <i class="el-icon-arrow-down el-icon--right"></i>
+      </el-button>
       <el-dropdown
+        v-if="showDropFunc"
         trigger="click"
         placement="bottom-end"
         @command="handleClick"
@@ -42,13 +51,15 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item
             command="updatepwd"
-            v-auth="'system_admin_updatepwd'"
+            v-if="$ui.pages.checkAuth('system_admin_updatepwd')"
           >修改密码</el-dropdown-item>
           <el-dropdown-item
+            v-if="$store.getters.sysMenus&&$store.getters.sysMenus.length>0"
             command="disabledTab"
             divided
           >{{disabledTab?'启用':'禁用'}}选项卡</el-dropdown-item>
           <el-dropdown-item
+            v-if="$store.getters.logoutPath"
             command="logout"
             divided
           >退出</el-dropdown-item>
@@ -70,12 +81,19 @@ export default {
       disabledTab: localStorage.DISABLE_TAB === "true"
     };
   },
+  computed: {
+    showDropFunc() {
+      return (
+        this.$ui.pages.checkAuth("system_admin_updatepwd") ||
+        (this.$store.getters.sysMenus &&
+          this.$store.getters.sysMenus.length > 0) ||
+        this.$store.getters.logoutPath
+      );
+    }
+  },
   methods: {
     logout() {
-      this.$ui.pages.link(this.$store.getters.logoutPath);
-      // localStorage.removeItem('token')
-      // this.$ui.cookie.removeItem(this.$ui.cookie.KEYS.login_token)
-      // location.reload()
+      location.href = this.$store.getters.logoutPath;
     },
     handleClick(e) {
       if (e === "disabledTab") {

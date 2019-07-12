@@ -9,9 +9,6 @@
   </head>
   <body>
     <div id="app"></div>
-    <script>
-      localStorage.IS_HASH_MODE = true
-    </script>
     <script src="../../dist/me-admin-sdk-full.js"></script>
     <script>
       var Layout = { template: '<v-layout/>' }
@@ -47,7 +44,9 @@
         sysInfo: {
           authName: '管理员',
           sysTitle: 'XXX后台管理系统',
-          logo: '',
+          sysLogo: '',
+          loginPath: '/login',
+          logoutPath: '/logout',
           iconList: [],
           menus: [
             {
@@ -80,7 +79,7 @@
               ]
             }
           ],
-          modules: ['*']
+          modules: ['system_admin_list']
         },
         store: {
           state: {},
@@ -90,98 +89,114 @@
           mutations: {},
           actions: {}
         },
-        routes: [
-          {
-            path: '/',
-            component: Layout,
-            redirect: '/home',
-            children: [
-              {
-                path: 'home',
-                name: 'home',
-                component: {
-                  template:
-                    '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button><div>首页路径：{{$codes.index_path}}</div></div>'
-                },
-                meta: { auth: true, title: '首页' }
-              },
-              {
-                name: 'welcome',
-                path: 'welcome',
-                component: {
-                  template: '<div>welcome</div>'
-                },
-                meta: {
-                  cache: true,
-                  auth: true,
-                  title: '欢迎页',
-                  skipauth: true
-                }
-              }
-            ]
-          },
-          {
-            path: '/system',
-            component: Layout,
-            children: [
-              {
-                path: 'admin/list',
-                name: 'system_admin_list',
-                component: {
-                  name: 'system_admin_list',
-                  template: '<div>管理员列表11<v-form-input/></div>',
-                  data() {
-                    return {
-                      test: ''
+        router: {
+          routes: [
+            {
+              path: '/',
+              component: Layout,
+              meta: {},
+              redirect: '/home',
+              children: [
+                {
+                  path: 'home',
+                  name: 'home',
+                  component: {
+                    template:
+                      '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button><div>首页路径：{{$codes.index_path}}</div></div>'
+                  },
+                  meta: {
+                    skipauth: false,
+                    title: '首页',
+                    //无权限跳转到welcome页
+                    authRedirect: {
+                      name: 'welcome'
                     }
                   }
                 },
-                meta: {
-                  cache: true,
-                  title: '管理员列表'
+                {
+                  name: 'welcome',
+                  path: 'welcome',
+                  component: {
+                    template: '<div>welcome</div>'
+                  },
+                  meta: {
+                    cache: true,
+                    title: '欢迎页',
+                    skipauth: true
+                  }
                 }
-              },
-              {
-                path: 'admin/create',
-                name: 'system_admin_create',
-                component: {
-                  name: 'system_admin_create',
-                  template: '<div>管理员创建<v-form-input/></div>'
+              ]
+            },
+            {
+              path: '/system',
+              component: Layout,
+              children: [
+                {
+                  path: 'admin/list',
+                  name: 'system_admin_list',
+                  meta: { skipauth: true },
+                  component: {
+                    name: 'system_admin_list',
+                    template: '<div>管理员列表11<v-form-input/></div>',
+                    data() {
+                      return {
+                        test: ''
+                      }
+                    }
+                  },
+                  meta: {
+                    skipauth: true,
+                    cache: true,
+                    title: '管理员列表'
+                  }
                 },
-                meta: {
-                  cache: true,
-                  title: '管理员创建',
-                  pname: 'system_admin_list'
+                {
+                  path: 'admin/create',
+                  name: 'system_admin_create',
+                  component: {
+                    name: 'system_admin_create',
+                    template: '<div>管理员创建<v-form-input/></div>'
+                  },
+                  meta: {
+                    skipauth: true,
+                    cache: true,
+                    title: '管理员创建',
+                    pname: 'system_admin_list'
+                  }
                 }
+              ]
+            },
+            {
+              name: 'login',
+              path: '/login',
+              meta: {
+                skipauth: true
+              },
+              component: { template: '<div>登录页</div>' }
+            },
+            {
+              name: 'logout',
+              path: '/logout',
+              component: { template: '<div>退出</div>' }
+            },
+            {
+              name: '404',
+              path: '/404',
+              component: { template: '<div>404 NotFound</div>' },
+              meta: {
+                skipauth: true,
+                nolayout: true
               }
-            ]
-          },
-          {
-            name: 'login',
-            path: '/login',
-            component: { template: '<div>登录页</div>' }
-          },
-          {
-            name: 'logout',
-            path: '/logout',
-            component: { template: '<div>退出</div>' }
-          },
-          {
-            name: '404',
-            path: '/404',
-            component: { template: '<div>404 NotFound</div>' },
-            meta: {
-              nolayout: true
+            },
+            {
+              path: '*',
+              redirect: '/404',
+              meta: {
+                skipauth: true
+              }
             }
-          },
-          {
-            path: '*',
-            redirect: '/404',
-            meta: {
-              auth: false
-            }
-          }
-        ]
+          ]
+        }
       })
       // var res = Vue.compile(
       //   '<router-view></router-view>'

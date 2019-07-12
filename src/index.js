@@ -1,7 +1,7 @@
 import App from './App'
 import _extends from './_extends'
 import store from './store'
-import router from './router'
+import { initRouter, default as router } from './router'
 import Vue from 'vue'
 import fetch from './_extends/ui/fetch'
 
@@ -34,7 +34,9 @@ export function register(globalOptions) {
       //window键值
       currentAppKey: '__currentApp',
       // 路由
-      routes: [],
+      router: {
+        routes: []
+      },
       // vuex store
       store: {
         state: {},
@@ -43,23 +45,12 @@ export function register(globalOptions) {
         actions: {}
       },
       // 系统信息
-      sysInfo: {
-        authName: null,
-        title: null,
-        logo: null,
-        iconList: [],
-        menus: [],
-        modules: [],
-        themeColor: '#2D5681',
-        loginPath: '/login',
-        indexPath: '/',
-        logoutPath: '/logout'
-      }
+      sysInfo: {}
     },
     globalOptions
   )
-  //添加路由
-  router.addRoutes(globalOptions.routes)
+  //初始化路由
+  initRouter(globalOptions.router)
   //添加状态管理模块
   if (globalOptions.store) {
     store.registerModule('custom', globalOptions.store)

@@ -23,6 +23,7 @@ function loadPageModules() {
       meta: m.meta || {},
       component: m
     }
+    r.meta.skipauth = true
     if (r.meta.nolayout === true) {
       singleModules.push(r)
     } else {

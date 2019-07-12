@@ -11,9 +11,9 @@ const appStore = {
     modules: [],
     iconList: [],
     sysTheme: '#409EFF',
-    indexPath: '/',
-    loginPath: '/login',
-    logoutPath: '/logout'
+    indexPath: null,
+    loginPath: null,
+    logoutPath: null
   },
   getters: {
     removeNavTab: state => state.removeNavTab,
@@ -54,16 +54,16 @@ const appStore = {
       sessionStorage.CurrentPageTabs = '[]'
     },
     SET_SYS_INFO: (state, sysInfo) => {
-      state.sysTitle = sysInfo.sysTitle || state.sysTitle
-      state.sysLogo = sysInfo.sysLogo || state.sysLogo
-      state.authName = sysInfo.authName || state.authName
+      state.sysTitle = sysInfo.sysTitle
+      state.sysLogo = sysInfo.sysLogo
+      state.sysTheme = sysInfo.sysTheme || state.sysTheme
+      state.authName = sysInfo.authName
       state.sysMenus = sysInfo.menus || []
       state.modules = sysInfo.modules || []
       state.iconList = sysInfo.iconList || []
-      state.sysTheme = sysInfo.themeColor || state.sysTheme
-      state.indexPath = sysInfo.indexPath || state.indexPath
-      state.loginPath = sysInfo.loginPath || state.loginPath
-      state.logoutPath = sysInfo.logoutPath || state.logoutPath
+      state.indexPath = sysInfo.indexPath
+      state.loginPath = sysInfo.loginPath
+      state.logoutPath = sysInfo.logoutPath
     }
   },
   actions: {

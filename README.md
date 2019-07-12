@@ -101,7 +101,7 @@ module.exports = {
   el: '#app',//自定义 vue 实例 {el:null}
   //vue实例
   currentAppKey: '__currentApp',
-  // vue路由
+  // vue路由 必须验证，若不验证，则需使用skipauth:true
   routes: [],
   // vuex store
   store: {
@@ -116,6 +116,8 @@ module.exports = {
     authName: '超级管理员',
     //系统标题
     sysTitle: 'XXXX后台管理系统',
+    //默认主题颜色
+    sysTheme: '#409EFF',
     //菜单图标列表
     iconList: ['iconfont icon-system','el-icon-info'],//手动引入图标库，传入其class名
     //菜单
@@ -128,8 +130,6 @@ module.exports = {
     }],
     //权限模块
     modules: ['system_admin_list'],//['*'] 为超级管理员权限
-    //默认主题颜色
-    themeColor: '#2D5681',
     //首页访问路由
     indexPath: '/',
     //登录访问路由

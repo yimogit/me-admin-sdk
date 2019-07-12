@@ -1,4 +1,5 @@
 import router from '../../router'
+import store from '../../store'
 import { Message, MessageBox } from 'element-ui'
 import NProgress from 'nprogress' // Progress 进度条
 
@@ -18,9 +19,10 @@ export const link = (route, isReplace) => {
     typeof route === 'string' &&
     (route.indexOf('http') === 0 || route.indexOf('//') === 0)
   ) {
-    return (location.href = route)
+    location.href = route.indexOf('///') === 0 ? route.replace('//', '') : route
+    return
   }
-  return isReplace ? router.replace(route) : router.push(route)
+  isReplace ? router.replace(route) : router.push(route)
 }
 export function message(options) {
   return Message(options)
@@ -180,4 +182,11 @@ export function genRandomId() {
 }
 export function isIe() {
   return !!window.ActiveXObject || 'ActiveXObject' in window
+}
+export function checkAuth(code) {
+  return (
+    store.getters.modules &&
+    (store.getters.modules.indexOf(code) > -1 ||
+      store.getters.modules[0] === '*')
+  )
 }

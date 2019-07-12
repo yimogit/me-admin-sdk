@@ -1,4 +1,3 @@
-localStorage.IS_HASH_MODE = true
 var Layout = { template: '<v-layout/>' }
 
 MeAdminSdk.registerApi('mission', function(request) {
@@ -46,7 +45,10 @@ window.sdkOptions = {
   sysInfo: {
     authName: '管理员',
     sysTitle: 'XXX后台管理系统',
-    sysLogo: '',
+    sysLogo: null,
+    sysTheme: 'red',
+    loginPath: '/login',
+    logoutPath: '/logout',
     iconList: [],
     menus: [
       {
@@ -81,98 +83,101 @@ window.sdkOptions = {
     ],
     modules: ['*']
   },
-  routes: [
-    {
-      path: '/',
-      component: Layout,
-      redirect: '/home',
-      children: [
-        {
-          path: 'home',
-          name: 'home',
-          component: {
-            template:
-              '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button><div>首页路径：{{$codes.index_path}}</div></div>'
-          },
-          meta: { auth: true, title: '首页' }
-        },
-        {
-          name: 'welcome',
-          path: 'welcome',
-          component: {
-            template: '<div>welcome</div>'
-          },
-          meta: {
-            cache: true,
-            auth: true,
-            title: '欢迎页',
-            skipauth: true
-          }
-        }
-      ]
+  router: {
+    beforeEach(to, from, next) {
+      console.log('new_beforeEach' + to.path)
+      next()
     },
-    {
-      path: '/system',
-      component: Layout,
-      children: [
-        {
-          path: 'admin/list',
-          name: 'system_admin_list',
-          component: {
+    routes: [
+      {
+        path: '/',
+        component: Layout,
+        children: [
+          {
+            path: '',
+            name: 'home',
+            component: {
+              template:
+                '<div title="Welcome Star">仓库地址：<el-button @click="$ui.pages.link($store.getters.githubUrl)">{{$store.getters.githubUrl}}</el-button><div>首页路径：{{$codes.index_path}}</div></div>'
+            },
+            meta: { skipauth: true, title: '首页' }
+          },
+          {
+            name: 'welcome',
+            path: 'welcome',
+            component: {
+              template: '<div>welcome</div>'
+            },
+            meta: {
+              cache: true,
+              title: '欢迎页',
+              skipauth: true
+            }
+          }
+        ]
+      },
+      {
+        path: '/system',
+        component: Layout,
+        children: [
+          {
+            path: 'admin/list',
             name: 'system_admin_list',
-            template: '<div>管理员列表11<v-form-input/></div>',
-            data() {
-              return {
-                test: ''
+            component: {
+              name: 'system_admin_list',
+              template: '<div>管理员列表11<v-form-input/></div>',
+              data() {
+                return {
+                  test: ''
+                }
               }
+            },
+            meta: {
+              cache: true,
+              title: '管理员列表'
             }
           },
-          meta: {
-            cache: true,
-            title: '管理员列表'
-          }
-        },
-        {
-          path: 'admin/create',
-          name: 'system_admin_create',
-          component: {
+          {
+            path: 'admin/create',
             name: 'system_admin_create',
-            template: '<div>管理员创建<v-form-input/></div>'
-          },
-          meta: {
-            cache: true,
-            title: '管理员创建',
-            pname: 'system_admin_list'
+            component: {
+              name: 'system_admin_create',
+              template: '<div>管理员创建<v-form-input/></div>'
+            },
+            meta: {
+              cache: true,
+              title: '管理员创建',
+              pname: 'system_admin_list'
+            }
           }
+        ]
+      },
+      {
+        name: 'login',
+        path: '/login',
+        component: { template: '<div>登录页</div>' }
+      },
+      {
+        name: 'logout',
+        path: '/logout',
+        component: { template: '<div>退出</div>' }
+      },
+      {
+        name: '404',
+        path: '/404',
+        component: { template: '<div>404 NotFound</div>' },
+        meta: {
+          nolayout: true
         }
-      ]
-    },
-    {
-      name: 'login',
-      path: '/login',
-      component: { template: '<div>登录页</div>' }
-    },
-    {
-      name: 'logout',
-      path: '/logout',
-      component: { template: '<div>退出</div>' }
-    },
-    {
-      name: '404',
-      path: '/404',
-      component: { template: '<div>404 NotFound</div>' },
-      meta: {
-        nolayout: true
+      },
+      {
+        path: '*',
+        redirect: '/404',
+        meta: {
+          auth: false
+        }
       }
-    },
-    {
-      path: '*',
-      redirect: '/404',
-      meta: {
-        auth: false
-      }
-    }
-  ]
+    ]
+  }
 }
-
 MeAdminSdk.register(sdkOptions)

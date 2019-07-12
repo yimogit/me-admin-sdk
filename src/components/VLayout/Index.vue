@@ -8,7 +8,7 @@
         <div
           slot="left"
           style="margin-right: 5px;"
-          v-if="isMobile"
+          v-if="isMobile&&showMenusBlock"
           @click="e=>menuCollspse=!menuCollspse"
         >
           <i class="el-icon-menu"></i>
@@ -17,23 +17,26 @@
     </el-header>
     <el-container>
       <div
-        v-if="!menuCollspse&&isMobile"
+        v-if="!menuCollspse&&isMobile&&showMenusBlock"
         @click="e=>menuCollspse=!menuCollspse"
         style="position: absolute;z-index: 99;top: 0px;width:100%;height:100%;opacity:0.3;background:#000;"
       ></div>
-      <el-aside :style="sidebarStyle">
+      <el-aside
+        :style="sidebarStyle"
+        v-if="showMenusBlock"
+      >
         <v-app-sidebar :collspse="menuCollspse" />
       </el-aside>
       <el-container class="layout-main">
         <div
           @click="e=>menuCollspse=!menuCollspse"
-          v-if="!isMobile"
+          v-if="!isMobile&&showMenusBlock"
           class="layout-toggle-menu custom-theme-bg"
         >
           <i :class="{'el-icon-arrow-left':!menuCollspse,'el-icon-arrow-right':menuCollspse}"></i>
         </div>
         <el-tabs
-          v-if="!isMobile"
+          v-if="!isMobile&&showMenusBlock"
           v-model="currentTab"
           type="card"
           @tab-click="clickTab"
@@ -59,7 +62,7 @@
         <v-app-main
           class="layout-main-content-mobile"
           :style="{'height':(innerHeight-this.headerHeight)+'px'}"
-          v-if="isMobile"
+          v-if="isMobile||!showMenusBlock"
         >
           <router-view :key="key" />
         </v-app-main>
@@ -201,6 +204,11 @@ export default {
     };
   },
   computed: {
+    showMenusBlock() {
+      return (
+        this.$store.getters.sysMenus && this.$store.getters.sysMenus.length > 0
+      );
+    },
     sysMenus() {
       return this.$store.getters.sysMenus;
     },
@@ -348,7 +356,7 @@ export default {
   bottom: 0;
   overflow: auto;
   padding: 15px;
-  padding-bottom:0;
+  padding-bottom: 0;
 }
 .layout-main-content-mobile {
   width: 100%;

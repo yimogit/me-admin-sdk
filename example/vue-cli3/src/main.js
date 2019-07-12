@@ -100,7 +100,7 @@ const { router, store } = register({
           component: {
             template: '<div>标题：{{$store.getters.indexTitle}}</div>'
           },
-          meta: { auth: true, title: '首页' }
+          meta: { skipauth: true, title: '首页' }
         },
         {
           name: 'welcome',
@@ -110,7 +110,6 @@ const { router, store } = register({
           },
           meta: {
             cache: true,
-            auth: true,
             title: '欢迎页',
             skipauth: true
           }

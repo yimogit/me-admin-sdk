@@ -1,4 +1,4 @@
-import { checkAuth } from '../filters'
+import { checkAuth } from '../_extends/ui/pages'
 export default {
   auth: {
     inserted: (el, binding) => {
