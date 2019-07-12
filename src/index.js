@@ -4,6 +4,7 @@ import store from './store'
 import { initRouter, default as router } from './router'
 import Vue from 'vue'
 import fetch from './_extends/ui/fetch'
+import $ui from './_extends/ui'
 
 var $api = {}
 var $codes = {}
@@ -12,17 +13,25 @@ export const VERSION = process.env.VERSION
 //注册通用的api接口模块,可通过$api.模块名.配置调用
 export function registerApi(moduleName, apiInit) {
   if (moduleName) {
-    $api[moduleName] = Object.assign({}, $api[moduleName], apiInit(fetch))
+    $api[moduleName] = Object.assign(
+      {},
+      $api[moduleName],
+      apiInit(fetch)
+    )
   } else {
     Object.assign($api, apiInit(fetch))
   }
 }
 //注册一些通用的方法
-export function registerCodes(moduleName, apiInit) {
+export function registerCodes(moduleName, codesInit) {
   if (moduleName) {
-    $codes[moduleName] = Object.assign({}, $codes[moduleName], apiInit())
+    $codes[moduleName] = Object.assign(
+      {},
+      $codes[moduleName],
+      codesInit($ui)
+    )
   } else {
-    Object.assign($codes, apiInit())
+    Object.assign($codes, codesInit($ui))
   }
 }
 
