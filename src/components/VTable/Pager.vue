@@ -18,10 +18,23 @@
       :summary-method="summaryMethod"
       @expand-change="(row,expandedRows)=>$emit('expand-change',row,expandedRows)"
     >
-      <el-table-column v-if="showCheckbox" type="selection" width="40" :resizable="false"></el-table-column>
-      <el-table-column v-if="radioKey" width="40" :resizable="false">
+      <el-table-column
+        v-if="showCheckbox"
+        type="selection"
+        width="40"
+        :resizable="false"
+      ></el-table-column>
+      <el-table-column
+        v-if="radioKey"
+        width="40"
+        :resizable="false"
+      >
         <template slot-scope="prop">
-          <el-radio v-model="radio_index" :label="prop.$index" class="custom-table-radio"></el-radio>
+          <el-radio
+            v-model="radio_index"
+            :label="prop.$index"
+            class="custom-table-radio"
+          ></el-radio>
         </template>
       </el-table-column>
       <slot></slot>
@@ -86,8 +99,8 @@ export default {
       pagedCriteria: {
         pageSize: 10,
         pageIndex: 0,
-        columnName: '',
-        columnOrder: ''
+        columnName: "",
+        columnOrder: ""
       },
       tableData: {
         rows: [],
@@ -96,108 +109,115 @@ export default {
       select_arr: [],
       radio_index: {},
       tableHeight: 500
-    }
+    };
   },
-  watch: {
-    $route() {
-      this.loadData()
-    }
-  },
+  // watch: {
+  //   $route() {
+  //     this.loadData()
+  //   }
+  // },
   created() {
-    this.initTableHeight()
-    this.loadData()
+    this.initTableHeight();
+    if (!this.$route.meta.cache) {
+      this.loadData();
+    }
+  },
+  activated() {
+    if (this.$route.meta.cache) {
+      this.loadData();
+    }
   },
   methods: {
     initTableHeight() {
       this.$nextTick(() => {
-        if (window.innerWidth < 600 || window.innerHeight < 600) return
-        var tableTop = document.getElementsByClassName('custom-table')[0]
-          .offsetTop
+        if (window.innerWidth < 600 || window.innerHeight < 600) return;
+        var tableTop = document.getElementsByClassName("custom-table")[0]
+          .offsetTop;
         //浏览器高度- 搜索框高度-分页底部高度-主体到顶部的距离
         this.tableHeight =
-          document.body.clientHeight - tableTop - 70 - (this.topHeight || 90)
-      })
+          document.body.clientHeight - tableTop - 70 - (this.topHeight || 90);
+      });
     },
     handle_current_change(val) {
-      const _key = this.radioKey
+      const _key = this.radioKey;
       this.radio_index = val
         ? this.tableData.rows.findIndex(e => e[_key] === val[_key])
-        : {}
-      this.$emit('handle-radio', val)
+        : {};
+      this.$emit("handle-radio", val);
     },
     on_handle() {
-      this.$emit('handle-pager', this.pagedCriteria)
-      this.loadData()
+      this.$emit("handle-pager", this.pagedCriteria);
+      this.loadData();
     },
     on_sort_change(p) {
-      if (p.column && p.column.sortable === 'custom') {
-        this.pagedCriteria.columnName = p.prop
+      if (p.column && p.column.sortable === "custom") {
+        this.pagedCriteria.columnName = p.prop;
         this.pagedCriteria.columnOrder =
-          p.order === 'descending' ? 'desc' : 'asc'
+          p.order === "descending" ? "desc" : "asc";
       } else {
-        this.pagedCriteria.columnName = ''
-        this.pagedCriteria.columnOrder = ''
+        this.pagedCriteria.columnName = "";
+        this.pagedCriteria.columnOrder = "";
       }
-      this.on_handle()
+      this.on_handle();
     },
     on_size_change(val) {
-      this.showLoading()
-      this.pagedCriteria.pageSize = val
-      this.on_handle()
+      this.showLoading();
+      this.pagedCriteria.pageSize = val;
+      this.on_handle();
     },
     on_current_change(val) {
-      this.showLoading()
-      this.pagedCriteria.pageIndex = Math.max(val - 1, 0)
-      this.on_handle()
+      this.showLoading();
+      this.pagedCriteria.pageIndex = Math.max(val - 1, 0);
+      this.on_handle();
     },
     on_selection_change(e) {
-      this.select_arr = e
-      this.$emit('handle-checkbox', e)
+      this.select_arr = e;
+      this.$emit("handle-checkbox", e);
     },
     on_row_dblclick(row, event) {
-      this.$refs.mytable.toggleRowSelection(row)
+      this.$refs.mytable.toggleRowSelection(row);
     },
     currentTable() {
-      return this.$refs.mytable
+      return this.$refs.mytable;
     },
     getSelectorArr() {
-      return this.select_arr
+      return this.select_arr;
     },
     getPagedCriteria() {
-      return this.pagedCriteria
+      return this.pagedCriteria;
     },
     showLoading() {
-      this.loading = true
+      this.loading = true;
     },
     hideLoading() {
       this.$nextTick(() => {
-        this.loading = false
-      })
+        this.loading = false;
+      });
     },
     search() {
-      this.pagedCriteria.pageIndex = 0
-      this.showLoading()
-      this.loadData()
+      this.pagedCriteria.pageIndex = 0;
+      this.showLoading();
+      this.loadData();
     },
     loadData() {
-      var search = Object.assign(this.pagedCriteria, this.loadSearch)
+      var search = Object.assign(this.pagedCriteria, this.loadSearch);
       this.loadAction(search)
         .then(res => {
-          if (res.status !== 1) return
-          this.tableData.rows = res.data.items
-          this.tableData.total = res.data.totalCount
-          this.hideLoading()
+          if (res.status !== 1) return;
+          this.tableData.rows = res.data.items;
+          this.tableData.total = res.data.totalCount;
+          this.hideLoading();
         })
         .catch(() => {
-          this.hideLoading()
-        })
+          this.hideLoading();
+        });
     }
   }
-}
+};
 </script>
 <style lang="scss">
 .custom-table {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .custom-table-pager {
   float: right;

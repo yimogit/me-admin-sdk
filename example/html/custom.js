@@ -77,6 +77,13 @@ window.sdkOptions = {
             menuIcon: null,
             menuCode: 'system_admin_create',
             children: null
+          },
+          {
+            menuId: '23ca8eb42fbe484ba75957d853fc57aa',
+            menuName: '管理员测试',
+            menuIcon: null,
+            menuCode: 'system_admin_test',
+            children: null
           }
         ]
       }
@@ -125,10 +132,28 @@ window.sdkOptions = {
             name: 'system_admin_list',
             component: {
               name: 'system_admin_list',
-              template: '<div>管理员列表11<v-form-input/></div>',
+              template:
+                '<div>管理员列表11<v-form-input/><v-table-pager :loadAction="loadAction"></v-table-pager></div>',
               data() {
                 return {
                   test: ''
+                }
+              },
+              methods: {
+                loadAction() {
+                  console.log('load')
+                  return new Promise(resolve => {
+                    resolve({
+                      status: 1,
+                      msg: 'ok',
+                      data: {
+                        totalCount: 0,
+                        totalPages: 0,
+                        items: [],
+                        hasNextPage: false
+                      }
+                    })
+                  })
                 }
               }
             },
@@ -148,6 +173,41 @@ window.sdkOptions = {
               cache: true,
               title: '管理员创建',
               pname: 'system_admin_list'
+            }
+          },
+          {
+            path: 'admin/test',
+            name: 'system_admin_test',
+            component: {
+              name: 'system_admin_test',
+              template:
+                '<div>测试<v-form-input/><v-table-pager :loadAction="loadAction"></v-table-pager></div>',
+              data() {
+                return {
+                  test: ''
+                }
+              },
+              methods: {
+                loadAction() {
+                  console.log('load2')
+                  return new Promise(resolve => {
+                    resolve({
+                      status: 1,
+                      msg: 'ok',
+                      data: {
+                        totalCount: 0,
+                        totalPages: 0,
+                        items: [],
+                        hasNextPage: false
+                      }
+                    })
+                  })
+                }
+              }
+            },
+            meta: {
+              cache: true,
+              title: '管理员列表'
             }
           }
         ]
