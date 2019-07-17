@@ -66,8 +66,8 @@ export default {
               status: 1,
               msg: "ok",
               data: [
-                { text: "LP", value: "lp", children: null },
-                { text: "JLDL", value: "jldl", children: null }
+                { text: "Test1", value: 1, children: null },
+                { text: "Test2", value: 2, children: null }
               ]
             });
           }, 2000);

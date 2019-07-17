@@ -1,7 +1,7 @@
 {
   "name": "me-admin-sdk",
   "description": "一个真正开箱即用的后台管理系统模板",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "author": "易墨 <wsyimo@qq.com>",
   "license": "MIT",
   "private": false,
@@ -23,7 +23,8 @@
     "build:full": "cross-env NODE_ENV=production webpack --mode production --progress --hide-modules",
     "build:mini": "cross-env NODE_ENV=production PACKAGE_MINI=true webpack --mode production --progress --hide-modules",
     "build": "npm run build:mini&&npm run build:full",
-    "mock": "node mock-server/index.js --port 2233"
+    "mock": "node mock-server/index.js --port 2233",
+    "build:example": "cross-env NODE_ENV=example webpack --mode production --progress --hide-modules"
   },
   "main": "dist/me-admin-sdk.js",
   "repository": {

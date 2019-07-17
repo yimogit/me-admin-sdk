@@ -5,7 +5,6 @@ import VBtnDel from './VButton/Del'
 import VBtnExport from './VButton/Export'
 import VFormInput from './VForm/Input'
 import VFormSelect from './VForm/Select'
-import VFormTags from './VForm/Tags'
 import VFormHelp from './VForm/Help'
 import VFormDate from './VForm/Date'
 import VFormDateRange from './VForm/DateRange'
@@ -17,6 +16,10 @@ import VTableEdit from './VTable/Edit'
 import VUploadS from './VUpload/Single'
 import VUploadM from './VUpload/Multiple'
 
+import VTagCustom from './VTag/CustomTag'
+import VTagEnable from './VTag/EnableTag'
+import VTagMoney from './VTag/MoneyTag'
+
 import VLayout from './VLayout/Index'
 
 export default {
@@ -27,7 +30,6 @@ export default {
   VBtnExport,
   VFormInput,
   VFormSelect,
-  VFormTags,
   VFormHelp,
   VFormDate,
   VFormDateRange,
@@ -36,5 +38,8 @@ export default {
   VTableEdit,
   VUploadS,
   VUploadM,
+  VTagCustom,
+  VTagEnable,
+  VTagMoney,
   VLayout
 }

@@ -82,18 +82,20 @@ export default {
     loadData(autoOpen) {
       if (this.isloading || this.options.length > 0 || !this.apiFunc) return;
       this.isloading = true;
-      this.apiFunc()
-        .then(res => {
-          this.options = res.data.map(s => {
-            s.value = String(s.value);
-            return s;
+      setTimeout(() => {
+        this.apiFunc()
+          .then(res => {
+            this.options = res.data.map(s => {
+              s.value = String(s.value);
+              return s;
+            });
+            this.isloading = false;
+            if (autoOpen) this.$refs.currentSelect.selectOption();
+          })
+          .catch(_ => {
+            this.isloading = false;
           });
-          this.isloading = false;
-          if (autoOpen) this.$refs.currentSelect.selectOption();
-        })
-        .catch(_ => {
-          this.isloading = false;
-        });
+      }, 200);
     }
   }
 };

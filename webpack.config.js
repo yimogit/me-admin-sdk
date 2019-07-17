@@ -9,7 +9,7 @@ const version = JSON.stringify(require('./package.json').version)
 module.exports = {
   entry: nodeEnv === 'production' ? './src/index.js' : './example/dev/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, nodeEnv === 'example'?'./example/dist':'./dist'),
     publicPath: '/dist/',
     filename:
       nodeEnv === 'production'

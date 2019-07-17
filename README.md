@@ -2,9 +2,13 @@
 
 封装了 me-admin-template，使其真正的可开箱即用
 
-示例：[完整版](https://yimogit.github.io/me-admin-sdk/example/html/full.html) [无依赖版本](https://yimogit.github.io/me-admin-sdk/example/html/mini.html)
-
+示例：
+- [完整版使用](https://yimogit.github.io/me-admin-sdk/example/html/full.html)
+- [无依赖版本使用](https://yimogit.github.io/me-admin-sdk/example/html/mini.html)
+- [打包示例](https://yimogit.github.io/me-admin-sdk/example/dist/index.html)
 ## npm 包
+
+![](https://img.shields.io/npm/v/me-admin-sdk.svg)
 
 安装：`npm install --save me-admin-sdk`
 
@@ -101,8 +105,10 @@ module.exports = {
   el: '#app',//自定义 vue 实例 {el:null}
   //vue实例
   currentAppKey: '__currentApp',
-  // vue路由 必须验证，若不验证，则需使用skipauth:true
-  routes: [],
+  // vue路由 必须验证(authName!=null)，若不验证，则需使用skipauth:true
+  router:{
+    routes: [],
+  },
   // vuex store
   store: {
     state: {},
@@ -128,7 +134,7 @@ module.exports = {
         menuCode: 'home',
         children: null//可多级嵌套
     }],
-    //权限模块
+    //权限模块 路由name值
     modules: ['system_admin_list'],//['*'] 为超级管理员权限
     //首页访问路由
     indexPath: '/',
