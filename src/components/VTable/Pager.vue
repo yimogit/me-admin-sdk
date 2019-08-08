@@ -218,6 +218,7 @@ export default {
 <style lang="scss">
 .custom-table {
   margin-bottom: 20px;
+  margin-top:5px;
 }
 .custom-table-pager {
   float: right;

@@ -6,6 +6,7 @@
     :allowCreate="allowCreate"
     :filterable="filterable"
     :clearable="clearable"
+    :defaultFirstOption="defaultFirstOption"
     @change="change"
     :multiple="multiple"
     :placeholder="placeholder"
@@ -32,6 +33,7 @@ export default {
     placeholder: String,
     allowCreate: Boolean,
     filterable: Boolean,
+    defaultFirstOption: Boolean,
     clearable: {
       type: Boolean,
       default: true
@@ -73,8 +75,8 @@ export default {
   },
   methods: {
     change(val) {
-      if (typeof this.value === "string" && this.multipleSplit) {
-        this.$emit("input", val.join(","));
+      if (this.multipleSplit) {
+        this.$emit("input", (val || []).join(","));
       } else {
         this.$emit("input", val);
       }
