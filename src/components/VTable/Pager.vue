@@ -99,7 +99,10 @@ export default {
       type: String,
       default: "拼命加载中"
     },
-    border: Boolean,
+    border: {
+      type: Boolean,
+      default: true
+    },
     topHeight: Number,
     showSummary: Boolean,
     summaryMethod: Function,
@@ -165,7 +168,7 @@ export default {
       pagedCriteria[pagedKeyConfig.columnName] = "";
       pagedCriteria[pagedKeyConfig.columnOrder] = "";
     }
-    console.log(pagedCriteria);
+    // console.log(pagedCriteria);
     return {
       pageSizes: pageSizes,
       pageLayout: this.pagerLayout || "total, sizes, prev, pager, next, jumper",
