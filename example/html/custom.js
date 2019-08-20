@@ -133,7 +133,7 @@ window.sdkOptions = {
             component: {
               name: 'system_admin_list',
               template:
-                '<div>管理员列表11<v-form-input/><v-table-pager :loadAction="loadAction"></v-table-pager></div>',
+                '<div>管理员列表11<v-form-input/></div>',
               data() {
                 return {
                   test: ''
@@ -181,7 +181,7 @@ window.sdkOptions = {
             component: {
               name: 'system_admin_test',
               template:
-                '<div>测试<v-form-input/><v-table-pager :loadAction="loadAction"></v-table-pager></div>',
+                '<div>测试<v-form-input/></div>',
               data() {
                 return {
                   test: ''

@@ -66,6 +66,7 @@
           <v-table-pager
             :loadAction="getAdminList"
             :auto-height="300"
+            :pagerKeyConfig="pagerKeyConfig"
           >
             <el-table-column
               prop="adminName"
@@ -175,8 +176,10 @@ export default {
         setTimeout(() => {
           var total = 100;
           var items = [];
-          var pageIndex = search[this.pagerKeyConfig.pageIndex]- this.pagerKeyConfig.startPageIndex;
-          var pageSize = search[this.pagerKeyConfig.pageSize]
+          var pageIndex =
+            search[this.pagerKeyConfig.pageIndex] -
+            this.pagerKeyConfig.startPageIndex;
+          var pageSize = search[this.pagerKeyConfig.pageSize];
           for (let index = 1; index <= pageSize; index++) {
             items.push({
               id: pageIndex * pageSize + index,
@@ -185,9 +188,9 @@ export default {
               createdAt: "2005-06-01 18:14:20"
             });
           }
-          var data={}
-          data[this.pagerKeyConfig.rows]=items
-          data[this.pagerKeyConfig.total]=total
+          var data = {};
+          data[this.pagerKeyConfig.rows] = items;
+          data[this.pagerKeyConfig.total] = total;
           resolve({
             status: 1,
             data: data
