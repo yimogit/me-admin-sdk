@@ -17,6 +17,8 @@
       :show-summary="showSummary"
       :summary-method="summaryMethod"
       @expand-change="(row,expandedRows)=>$emit('expand-change',row,expandedRows)"
+      :span-method="spanMethod"
+      :render-header="renderHeader"
     >
       <el-table-column
         v-if="showCheckbox"
@@ -90,7 +92,10 @@ export default {
     },
     topHeight: Number,
     showSummary: Boolean,
-    summaryMethod: Function
+    summaryMethod: Function,
+    autoHeight: [Boolean,Number,String],
+    spanMethod: Function,
+    renderHeader:Function,
   },
   data() {
     return {
@@ -130,6 +135,11 @@ export default {
   methods: {
     initTableHeight() {
       this.$nextTick(() => {
+        if (this.autoHeight) {
+          this.tableHeight =
+            this.autoHeight === true ? "auto" : this.autoHeight;
+          return;
+        }
         if (window.innerWidth < 600 || window.innerHeight < 600) return;
         var tableTop = document.getElementsByClassName("custom-table")[0]
           .offsetTop;
@@ -218,7 +228,7 @@ export default {
 <style lang="scss">
 .custom-table {
   margin-bottom: 20px;
-  margin-top:5px;
+  margin-top: 5px;
 }
 .custom-table-pager {
   float: right;

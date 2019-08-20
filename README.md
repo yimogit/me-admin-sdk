@@ -145,3 +145,9 @@ module.exports = {
   }
 },
 ```
+
+### 自定义指令
+
+- `v-auth`: 验证模块权限
+- `v-footer-btns`：根据屏幕固定表单按钮
+- `v-input-small`：适配表单输入框长度

@@ -53,9 +53,9 @@
         type="expand"
         :resizable="false"
       >
-        <template slot-scope="props">
-          <p>表格嵌套</p>
-          <v-table-pager :loadAction="getAdminList">
+        <template >
+          <p>表格嵌套,固定高度</p>
+          <v-table-pager :loadAction="getAdminList" :auto-height="300">
             <el-table-column
               prop="adminName"
               label="管理员名称"

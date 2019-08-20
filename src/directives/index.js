@@ -27,5 +27,12 @@ export default {
         setTimeout(change, 500)
       }
     }
+  },
+  inputSmall: {
+    inserted: (el, binding) => {
+      if (el.className.indexOf('custom-input-small') === -1) {
+        el.className += ' custom-input-small'
+      }
+    }
   }
 }

@@ -93,4 +93,7 @@ body {
   .el-picker-panel{
     left:0 !important;
   }
+  .custom-input-small {
+    width: auto;
+  }
 }
