@@ -13,7 +13,8 @@ const appStore = {
     sysTheme: '#409EFF',
     indexPath: null,
     loginPath: null,
-    logoutPath: null
+    logoutPath: null,
+    isMobile: window.innerWidth < 600
   },
   getters: {
     removeNavTab: state => state.removeNavTab,
@@ -27,7 +28,8 @@ const appStore = {
     iconList: state => state.iconList,
     indexPath: state => state.indexPath,
     loginPath: state => state.loginPath,
-    logoutPath: state => state.logoutPath
+    logoutPath: state => state.logoutPath,
+    isMobile: state => state.isMobile
   },
   mutations: {
     REMOVE_NAV_TAB_KEY: (state, value) => {
@@ -64,6 +66,9 @@ const appStore = {
       state.indexPath = sysInfo.indexPath
       state.loginPath = sysInfo.loginPath
       state.logoutPath = sysInfo.logoutPath
+      if (typeof sysInfo.isMobile === 'boolean') {
+        state.isMobile = sysInfo.isMobile
+      }
     }
   },
   actions: {

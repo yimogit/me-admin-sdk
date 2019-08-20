@@ -11,7 +11,7 @@
               <el-button
                 slot="append"
                 icon="el-icon-search"
-                @click="e=>this.$refs.mytable.loadData()"
+                @click="e=>this.$refs.mytable.search()"
               ></el-button>
             </el-input>
           </el-form-item>
@@ -33,10 +33,18 @@
       :loadSearch="search"
       ref="mytable"
       :show-checkbox="true"
+      :border="true"
       radio-key="id"
       :hide-pager="false"
+      toolbarLoadingHide
+      pagerLayout="total,sizes, prev, pager, next"
+      :pagerSizes="[10,50,100]"
+      :defaultPageSize="10"
+      :pagerCount="7"
+      :pagerSingleHide="true"
       @handle-radio="e=>$ui.pages.info(e.adminName)"
       @handle-checkbox="e=>{checkList=e;$ui.pages.info(e.map(s=>s.adminName))}"
+      :pagerKeyConfig="pagerKeyConfig"
     >
       <div slot="toolbar">
         <el-button
@@ -53,9 +61,12 @@
         type="expand"
         :resizable="false"
       >
-        <template >
+        <template>
           <p>表格嵌套,固定高度</p>
-          <v-table-pager :loadAction="getAdminList" :auto-height="300">
+          <v-table-pager
+            :loadAction="getAdminList"
+            :auto-height="300"
+          >
             <el-table-column
               prop="adminName"
               label="管理员名称"
@@ -67,11 +78,13 @@
       <el-table-column
         prop="adminName"
         label="管理员名称"
+        sortable="custom"
       >
       </el-table-column>
       <el-table-column label="是否启用">
         <template slot-scope="prop">
-          <el-tag type="prop.row.isEnable?'success':'info'">{{prop.row.isEnable?'是':'否'}}</el-tag>
+          <v-tag-enable v-model="prop.row.isEnable" />
+          <!-- <el-tag type="prop.row.isEnable?'success':'info'">{{prop.row.isEnable?'是':'否'}}</el-tag> -->
         </template>
       </el-table-column>
       <el-table-column
@@ -85,7 +98,7 @@
       >
         <template slot-scope="prop">
           <v-btn-edit
-            @click="$ui.pages.link('/system/admin/edit/'+prop.row.id)"
+            @click="showDialog({})"
             auth="system_admin_edit"
             icon="el-icon-document"
           >编辑</v-btn-edit>
@@ -120,6 +133,16 @@ export default {
   },
   data() {
     return {
+      //自定义
+      pagerKeyConfig: {
+        startPageIndex: 0,
+        pageIndex: "page",
+        pageSize: "size",
+        columnName: "",
+        columnOrder: "",
+        rows: "items1",
+        total: "totalCount1"
+      },
       search: {
         keyword: ""
       },
@@ -138,30 +161,6 @@ export default {
       this.editDialog.editId = row.id;
       this.editDialog.show = true;
     },
-    submitCallback(result) {
-      this.editDialog.show = false;
-      if (!result) return;
-      this.$refs.mytable.loadData();
-      return new Promise((resolve, reject) => {
-        resolve(
-          require("mockjs-lite").mock({
-            status: 1,
-            data: {
-              "rows|10": [
-                {
-                  id: "@increment",
-                  adminName: "@cname",
-                  isEnable: "@boolean()",
-                  createdAt: "@datetime",
-                  "roleIds|1-3": [1, 2, 3]
-                }
-              ],
-              total: 30
-            }
-          })
-        );
-      });
-    },
     delAdmin(id) {
       this.$ui.pages.confirm("确认删除？").then(res => {
         this.delAdmin({ id: id }).then(res => {
@@ -171,26 +170,29 @@ export default {
       });
     },
     getAdminList(search) {
+      console.log(search);
       return new Promise((resolve, reject) => {
-        var total = 100;
-        var items = [];
-        var pageIndex = search.pageIndex;
-        var pageSize = search.pageSize;
-        for (let index = 1; index <= pageSize; index++) {
-          items.push({
-            id: pageIndex * pageSize + index,
-            adminName: "admin_" + (pageIndex * pageSize + index),
-            isEnable: true,
-            createdAt: "2005-06-01 18:14:20"
-          });
-        }
-        resolve({
-          status: 1,
-          data: {
-            items: items,
-            totalCount: total
+        setTimeout(() => {
+          var total = 100;
+          var items = [];
+          var pageIndex = search[this.pagerKeyConfig.pageIndex]- this.pagerKeyConfig.startPageIndex;
+          var pageSize = search[this.pagerKeyConfig.pageSize]
+          for (let index = 1; index <= pageSize; index++) {
+            items.push({
+              id: pageIndex * pageSize + index,
+              adminName: "admin_" + (pageIndex * pageSize + index),
+              isEnable: index % 3 === 0,
+              createdAt: "2005-06-01 18:14:20"
+            });
           }
-        });
+          var data={}
+          data[this.pagerKeyConfig.rows]=items
+          data[this.pagerKeyConfig.total]=total
+          resolve({
+            status: 1,
+            data: data
+          });
+        }, 1000);
       });
     },
     delAdmin() {}

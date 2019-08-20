@@ -110,7 +110,7 @@ export default {
     return {
       currentTab: "",
       pageTabs: [],
-      menuCollspse: window.innerWidth < 600,
+      menuCollspse: this.$store.getters.isMobile,
       headerHeight: 50,
       innerHeight: 0,
       disableTab: localStorage.DISABLE_TAB === "true",
@@ -221,11 +221,11 @@ export default {
       }px;`;
     },
     isMobile() {
-      return window.innerWidth < 600;
+      return this.$store.getters.isMobile;
     },
     sidebarStyle() {
       var w =
-        this.menuCollspse && window.innerWidth < 600
+        this.menuCollspse && this.isMobile
           ? "width:0;min-width:0px;"
           : "width:auto;min-width:70px;";
       this.$nextTick(() => {
@@ -233,7 +233,7 @@ export default {
       });
       var h = this.headerHeight;
       var mobileStyle = "";
-      if (window.innerWidth < 600) {
+      if (this.isMobile) {
         mobileStyle = "position: absolute;z-index: 999;top: 0;";
         h = 0;
       }
