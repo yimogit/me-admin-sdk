@@ -54,7 +54,7 @@
           background
           @size-change="on_size_change"
           @current-change="on_current_change"
-          :current-page="pagedCriteria[pagedKeyConfig.pageIndex]+(pagedKeyConfig.startPageIndex>0?0:1)"
+          :current-page="currentPage"
           :page-sizes="pageSizes"
           :page-size="pagedCriteria[pagedKeyConfig.pageSize]"
           :layout="pageLayout"
@@ -168,7 +168,6 @@ export default {
       pagedCriteria[pagedKeyConfig.columnName] = "";
       pagedCriteria[pagedKeyConfig.columnOrder] = "";
     }
-    // console.log(pagedCriteria);
     return {
       pageSizes: pageSizes,
       pageLayout: this.pagerLayout || "total, sizes, prev, pager, next, jumper",
@@ -184,6 +183,14 @@ export default {
       tableHeight: 500,
       isMobile: isMobile
     };
+  },
+  computed: {
+    currentPage() {
+      return (
+        this.pagedCriteria[this.pagedKeyConfig.pageIndex] +
+        (this.pagedKeyConfig.startPageIndex > 0 ? 0 : 1)
+      );
+    }
   },
   created() {
     this.initTableHeight();
@@ -247,7 +254,7 @@ export default {
     on_current_change(val) {
       this.showLoading();
       this.pagedCriteria[this.pagedKeyConfig.pageIndex] = Math.max(
-        val - (this.pagerKeyConfig.startPageIndex > 0 ? 0 : 1),
+        val - (this.pagedKeyConfig.startPageIndex > 0 ? 0 : 1),
         this.pagedKeyConfig.startPageIndex
       );
       this.on_handle();
