@@ -1,6 +1,6 @@
 # me-admin-sdk
 
-封装了 me-admin-template，使其真正的可开箱即用
+一个能够开箱即用的管理模板基架，基于 Vue + ElementUI 构建
 
 示例：
 - [完整版使用](https://yimogit.github.io/me-admin-sdk/example/html/full.html)
