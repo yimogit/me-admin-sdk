@@ -181,16 +181,11 @@ export default {
       select_arr: [],
       radio_index: {},
       tableHeight: 500,
-      isMobile: isMobile
+      isMobile: isMobile,
+      currentPage:
+        pagedCriteria[pagedKeyConfig.pageIndex] +
+        (pagedKeyConfig.startPageIndex > 0 ? 0 : 1)
     };
-  },
-  computed: {
-    currentPage() {
-      return (
-        this.pagedCriteria[this.pagedKeyConfig.pageIndex] +
-        (this.pagedKeyConfig.startPageIndex > 0 ? 0 : 1)
-      );
-    }
   },
   created() {
     this.initTableHeight();
