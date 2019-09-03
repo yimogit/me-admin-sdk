@@ -124,6 +124,14 @@ module.exports = {
     sysTitle: 'XXXX后台管理系统',
     //默认主题颜色
     sysTheme: '#409EFF',
+    //导航栏主题
+    sysNavTheme:{
+      backgroundColor:'#545c64',
+      textColor:'#fff',
+      activeTextColor:'#ffd04b',
+      uniqueOpened:false,
+      collapseTransition:false
+    },
     //菜单图标列表
     iconList: ['iconfont icon-system','el-icon-info'],//手动引入图标库，传入其class名
     //菜单

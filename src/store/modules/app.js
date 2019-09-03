@@ -10,7 +10,8 @@ const appStore = {
     sysMenus: [],
     modules: [],
     iconList: [],
-    sysTheme: '#409EFF',
+    sysTheme: '#7D8D9D',
+    sysNavTheme:{},
     indexPath: null,
     loginPath: null,
     logoutPath: null,
@@ -22,6 +23,7 @@ const appStore = {
     authName: state => state.authName,
     sysTitle: state => state.sysTitle,
     sysTheme: state => state.sysTheme,
+    sysNavTheme: state=>state.sysNavTheme,
     sysLogo: state => state.sysLogo,
     sysMenus: state => state.sysMenus,
     modules: state => state.modules,
@@ -59,6 +61,7 @@ const appStore = {
       state.sysTitle = sysInfo.sysTitle
       state.sysLogo = sysInfo.sysLogo
       state.sysTheme = sysInfo.sysTheme || state.sysTheme
+      state.sysNavTheme = sysInfo.sysNavTheme || state.sysNavTheme
       state.authName = sysInfo.authName
       state.sysMenus = sysInfo.menus || []
       state.modules = sysInfo.modules || []

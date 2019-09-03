@@ -2,8 +2,8 @@
   <el-menu
     class="el-menu-vertical-custom"
     :default-active="String(currentId)"
-    :collapse-transition="true"
     :collapse="isCollapse"
+    v-bind="navTheme"
   >
     <v-app-menu :menus="$store.getters.sysMenus" />
   </el-menu>
@@ -30,6 +30,9 @@ export default {
     };
   },
   computed: {
+    navTheme(){
+      return this.$store.getters.sysNavTheme||{}
+    },
     currentId() {
       var arr = [];
       /* eslint-disable */

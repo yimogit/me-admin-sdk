@@ -47,6 +47,13 @@ window.sdkOptions = {
     sysTitle: 'XXX后台管理系统',
     sysLogo: null,
     sysTheme: 'red',
+    sysNavTheme:{
+      backgroundColor:'#545c64',
+      textColor:'#fff',
+      activeTextColor:'#ffd04b',
+      uniqueOpened:false,
+      collapseTransition:false
+    },
     loginPath: '/login',
     logoutPath: '/logout',
     iconList: [],

@@ -70,6 +70,13 @@ MeAdminSdk.register({
     sysTitle: 'XXX后台管理系统',
     sysLogo: '',
     iconList: [],
+    sysNavTheme:{
+      backgroundColor:'#545c64',
+      textColor:'#fff',
+      activeTextColor:'#ffd04b',
+      uniqueOpened:false,
+      collapseTransition:false
+    },
     menus: [
       {
         menuId: 'a3361b3ceada4fc8bc1a65969fb652b9',
