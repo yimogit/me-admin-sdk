@@ -45,6 +45,7 @@
       @handle-radio="e=>$ui.pages.info(e.adminName)"
       @handle-checkbox="e=>{checkList=e;$ui.pages.info(e.map(s=>s.adminName))}"
       :pagerKeyConfig="pagerKeyConfig"
+      :elOpt="{stripe:true}"
     >
       <div slot="toolbar">
         <el-button

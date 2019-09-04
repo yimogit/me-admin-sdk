@@ -8,6 +8,7 @@
     :disabled="disabled"
     :class="small?'inline-small-input':''"
     :placeholder="placeholder"
+    v-bind="elOpt"
   >
     <slot
       name="prefix"
@@ -66,7 +67,12 @@ export default {
     max: {
       type: Number
     },
-    hasNull: Boolean
+    hasNull: Boolean,
+    //element-ui-table组件原始属性
+    elOpt:{
+      type:Object,
+      default:{}
+    }
   },
   data() {
     return {

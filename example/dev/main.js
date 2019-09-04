@@ -86,6 +86,13 @@ MeAdminSdk.register({
         children: null
       },
       {
+        menuId: '4ae619b2e52d4f2daa80674603a16b2a',
+        menuName: '组件',
+        menuIcon: 'el-icon-menu',
+        menuCode: null,
+        children: getCompModules()
+      },
+      {
         menuId: '博客',
         menuName: '博客',
         menuIcon: 'el-icon-menu',
@@ -107,13 +114,6 @@ MeAdminSdk.register({
           }
         ]
       },
-      {
-        menuId: '4ae619b2e52d4f2daa80674603a16b2a',
-        menuName: '组件',
-        menuIcon: 'el-icon-menu',
-        menuCode: null,
-        children: getCompModules()
-      }
       // {
       //   menuId: '859a87df80ac47559e27317f2023b69e',
       //   menuName: '链接管理',

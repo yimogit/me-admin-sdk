@@ -12,6 +12,7 @@
     :placeholder="placeholder"
     @focus="loadData(true)"
     ref="currentSelect"
+    v-bind="elOpt"
   >
     <el-option
       v-for="item in options"
@@ -41,6 +42,11 @@ export default {
     apiFunc: {
       type: Function,
       required: true
+    },
+    //element-ui-table组件原始属性
+    elOpt:{
+      type:Object,
+      default:{}
     }
     // cacheKey: String
   },

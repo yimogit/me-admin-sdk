@@ -3,9 +3,9 @@
 一个能够开箱即用的管理模板基架，基于 Vue + ElementUI 构建
 
 示例：
+- [打包示例](https://yimogit.github.io/me-admin-sdk/example/dist/index.html)
 - [完整版使用](https://yimogit.github.io/me-admin-sdk/example/html/full.html)
 - [无依赖版本使用](https://yimogit.github.io/me-admin-sdk/example/html/mini.html)
-- [打包示例](https://yimogit.github.io/me-admin-sdk/example/dist/index.html)
 ## npm 包
 
 ![](https://img.shields.io/npm/v/me-admin-sdk.svg)

@@ -18,6 +18,7 @@
       :summary-method="summaryMethod"
       :span-method="spanMethod"
       @expand-change="(row,expandedRows)=>$emit('expand-change',row,expandedRows)"
+      v-bind="elOpt"
     >
       <el-table-column
         v-if="showCheckbox"
@@ -142,7 +143,12 @@ export default {
     /**
      * 分页，排序，返回值对象自定义键值
      */
-    pagerKeyConfig: Object
+    pagerKeyConfig: Object,
+    //element-ui-table组件原始属性
+    elOpt:{
+      type:Object,
+      default:()=>{}
+    }
   },
   data() {
     var isMobile = this.$store.getters.isMobile;
