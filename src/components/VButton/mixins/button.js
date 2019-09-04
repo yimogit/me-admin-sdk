@@ -9,6 +9,11 @@ export default {
     size: {
       type: String,
       default: 'small'
+    },
+    //element-ui-table组件原始属性
+    elOpt: {
+      type: Object,
+      default: () => {}
     }
   },
   methods: {

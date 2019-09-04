@@ -16,6 +16,11 @@ export default {
     cacheKey: {
       type: String,
       default: 'cache_cascaer_' + Date.now
+    },
+    //element-ui-table组件原始属性
+    elOpt: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {

@@ -12,6 +12,7 @@
     :format="format"
     v-model="currentValue"
     :picker-options="pickerOptions"
+    v-bind="elOpt"
   />
 </template>
 
@@ -42,7 +43,12 @@ export default {
       type: Boolean,
       default: false
     },
-    pickerOptions: Object
+    pickerOptions: Object,
+    //element-ui-table组件原始属性
+    elOpt: {
+      type: Object,
+      default: () => {}
+    }
   },
   data() {
     return {

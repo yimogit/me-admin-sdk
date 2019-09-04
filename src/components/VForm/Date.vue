@@ -6,19 +6,20 @@
     @change="change"
     :value-format="format"
     v-model="currentValue"
+    v-bind="elOpt"
   />
 </template>
 
 <script>
 const DEFAULT_FORMATS = {
-  date: 'yyyy-MM-dd',
-  month: 'yyyy-MM',
-  datetime: 'yyyy-MM-dd HH:mm',
-  fulldatetime: 'yyyy-MM-dd HH:mm:ss',
-  time: 'HH:mm:ss',
-  week: 'yyyywWW',
-  year: 'yyyy'
-}
+  date: "yyyy-MM-dd",
+  month: "yyyy-MM",
+  datetime: "yyyy-MM-dd HH:mm",
+  fulldatetime: "yyyy-MM-dd HH:mm:ss",
+  time: "HH:mm:ss",
+  week: "yyyywWW",
+  year: "yyyy"
+};
 export default {
   props: {
     value: {
@@ -26,11 +27,11 @@ export default {
     },
     type: {
       type: String,
-      default: 'date'
+      default: "date"
     },
     placeholder: {
       type: String,
-      default: '选择日期'
+      default: "选择日期"
     },
     valueFormat: {
       type: String
@@ -38,27 +39,32 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    //element-ui-table组件原始属性
+    elOpt: {
+      type: Object,
+      default: () => {}
     }
   },
-  created() { },
+  created() {},
   data() {
     return {
       currentValue: this.value && new Date(this.value),
       format: this.valueFormat || DEFAULT_FORMATS[this.type]
-    }
+    };
   },
   watch: {
     value(val) {
       if (new Date(val) !== this.currentValue) {
-        this.currentValue = val && new Date(val)
+        this.currentValue = val && new Date(val);
       }
     }
   },
   methods: {
     change(val) {
-      this.currentValue = val && new Date(val)
-      this.$emit('input', (val || '').toString())
+      this.currentValue = val && new Date(val);
+      this.$emit("input", (val || "").toString());
     }
   }
-}
+};
 </script>

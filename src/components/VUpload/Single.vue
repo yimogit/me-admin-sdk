@@ -7,6 +7,7 @@
     :http-request="uploadImg"
     :before-upload="beforeUpload"
     :disabled="isUploading"
+    v-bind="elOpt"
   >
     <img v-if="prewiewUrl && !isFile" :src="prewiewUrl" :style="styleName" :class="classValue">
     <i

@@ -10,6 +10,7 @@
     v-model="currentValue"
     clearable
     :change-on-select="changeSelect"
+    v-bind="elOpt"
   ></el-cascader>
 </template>
 <script>

@@ -28,6 +28,11 @@ export default {
     formName: {
       type: String,
       default: 'file'
+    },
+    //element-ui-table组件原始属性
+    elOpt: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {

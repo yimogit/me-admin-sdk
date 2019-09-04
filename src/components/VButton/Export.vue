@@ -6,6 +6,7 @@
     :loading="loading||exportLoading"
     :disabled="disabled"
     @click="handle"
+    v-bind="elOpt"
   >
     <slot name="icon">
       <i class="el-icon-download"></i>
@@ -14,44 +15,43 @@
   </el-button>
 </template>
 <script>
+import button from "./mixins/button.js";
 export default {
+  mixins: [button],
   props: {
     to: {
       type: Object
     },
     search: {},
-    loading: {
-      type: Boolean,
-      default: false
-    },
     text: {
       type: String,
-      default: '导出'
-    },
-    disabled: {
-      type: Boolean,
-      default: false
+      default: "导出"
     }
   },
   data() {
     return {
       exportLoading: false
-    }
+    };
   },
   computed: {
     authName() {
-      return this.to ? this.to.name : ''
+      return this.to ? this.to.name : "";
     }
   },
   methods: {
     handle() {
-      this.exportLoading = true
-      this.$emit('click', this.search, () => {
-        this.exportLoading = false
-      }, () => {
-        this.exportLoading = false
-      })
+      this.exportLoading = true;
+      this.$emit(
+        "click",
+        this.search,
+        () => {
+          this.exportLoading = false;
+        },
+        () => {
+          this.exportLoading = false;
+        }
+      );
     }
   }
-}
+};
 </script>

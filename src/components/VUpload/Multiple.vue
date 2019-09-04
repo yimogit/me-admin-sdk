@@ -11,6 +11,7 @@
     :on-remove="handleRemove"
     :before-upload="beforeUpload"
     :on-exceed="handleLimit"
+    v-bind="elOpt"
   >
     <el-button
       size="small"

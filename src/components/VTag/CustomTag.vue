@@ -1,6 +1,9 @@
 <template>
-  <el-tag :type="type"
-          style="margin:1px;">
+  <el-tag
+    :type="type"
+    style="margin:1px;"
+    v-bind="elOpt"
+  >
     <slot></slot>
   </el-tag>
 </template>
@@ -8,12 +11,17 @@
 export default {
   props: {
     type: {
-      default: ''
+      default: ""
+    },
+    //element-ui-table组件原始属性
+    elOpt: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
-    return {}
+    return {};
   }
-}
+};
 </script>
 

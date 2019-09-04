@@ -6,6 +6,7 @@
     :loading="loading"
     v-auth="auth"
     @click="$emit('click')"
+    v-bind="elOpt"
   >
     <slot name="icon">
       <i :class="icon"></i>
@@ -15,18 +16,18 @@
 </template>
 
 <script>
-import button from './mixins/button.js'
+import button from "./mixins/button.js";
 export default {
   mixins: [button],
   props: {
     icon: {
       type: String,
-      default: 'el-icon-plus'
+      default: "el-icon-plus"
     },
     text: {
       type: String,
-      default: '创建'
+      default: "创建"
     }
   }
-}
+};
 </script>

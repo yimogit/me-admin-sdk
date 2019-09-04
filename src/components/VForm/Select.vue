@@ -44,9 +44,9 @@ export default {
       required: true
     },
     //element-ui-table组件原始属性
-    elOpt:{
-      type:Object,
-      default:{}
+    elOpt: {
+      type: Object,
+      default: () => {}
     }
     // cacheKey: String
   },
