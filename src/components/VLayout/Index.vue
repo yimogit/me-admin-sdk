@@ -50,13 +50,13 @@
             :key="item.tabKey"
             :name="item.tabKey"
           >
-            <div
+            <bdi
               v-if="!disableTab"
               class="layout-tab-title"
               slot="label"
               :id="'tab_'+item.tabKey"
               @contextmenu.prevent="openMenu(item,$event)"
-            >{{item.tabName}}</div>
+            >{{item.tabName}}</bdi>
           </el-tab-pane>
         </el-tabs>
         <v-app-main
@@ -392,10 +392,10 @@ export default {
   box-shadow: 0px 0px 0px;
   -webkit-box-shadow: 0px 0px 0px;
 }
-.layout-nav-tabs .layout-tab-title {
-  float: left;
-  /* padding-left: 8px; */
-}
+/* .layout-nav-tabs .layout-tab-title {
+   float: left;
+   padding-left: 8px;
+} */
 .layout-nav-tabs.el-tabs--card
   > .el-tabs__header
   .el-tabs__item.is-active.is-closable {

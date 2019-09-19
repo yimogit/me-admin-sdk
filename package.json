@@ -1,7 +1,7 @@
 {
   "name": "me-admin-sdk",
   "description": "一个能够开箱即用的管理模板基架，基于 Vue + ElementUI 构建",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "author": "易墨 <wsyimo@qq.com>",
   "license": "MIT",
   "private": false,
