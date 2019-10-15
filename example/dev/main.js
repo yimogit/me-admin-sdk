@@ -142,7 +142,7 @@ MeAdminSdk.register({
     modules: ['*']
   },
   router: {
-    mode:'history',
+    mode:'hash',
     routes: routes
   }
 })
