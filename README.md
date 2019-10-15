@@ -3,9 +3,11 @@
 一个能够开箱即用的管理模板基架，基于 Vue + ElementUI 构建
 
 示例：
+
 - [打包示例](https://yimogit.github.io/me-admin-sdk/example/dist/index.html)
 - [完整版使用](https://yimogit.github.io/me-admin-sdk/example/html/full.html)
 - [无依赖版本使用](https://yimogit.github.io/me-admin-sdk/example/html/mini.html)
+
 ## npm 包
 
 ![](https://img.shields.io/npm/v/me-admin-sdk.svg)
@@ -107,6 +109,7 @@ module.exports = {
   currentAppKey: '__currentApp',
   // vue路由 必须验证(authName!=null)，若不验证，则需使用skipauth:true
   router:{
+    // mode:'hash', // 不传默认是hash模式
     routes: [],
   },
   // vuex store
@@ -132,8 +135,6 @@ module.exports = {
       uniqueOpened:false,
       collapseTransition:false
     },
-    //菜单图标列表
-    iconList: ['iconfont icon-system','el-icon-info'],//手动引入图标库，传入其class名
     //菜单
     menus: [{
         menuId: 'a3361b3ceada4fc8bc1a65969fb652b9',

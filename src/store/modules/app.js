@@ -9,13 +9,15 @@ const appStore = {
     sysLogo: null,
     sysMenus: [],
     modules: [],
-    iconList: [],
     sysTheme: '#7D8D9D',
-    sysNavTheme:{},
+    sysNavTheme: {},
     indexPath: null,
     loginPath: null,
     logoutPath: null,
-    isMobile: window.innerWidth < 600
+    updatePwdPath: null,
+    isMobile: window.innerWidth < 600,
+    defaultThemeColors: [], //["#409EFF", "#3EBBB1", "#BB963E"],
+    customHeaderComp: null
   },
   getters: {
     removeNavTab: state => state.removeNavTab,
@@ -23,15 +25,17 @@ const appStore = {
     authName: state => state.authName,
     sysTitle: state => state.sysTitle,
     sysTheme: state => state.sysTheme,
-    sysNavTheme: state=>state.sysNavTheme,
+    sysNavTheme: state => state.sysNavTheme,
     sysLogo: state => state.sysLogo,
     sysMenus: state => state.sysMenus,
     modules: state => state.modules,
-    iconList: state => state.iconList,
     indexPath: state => state.indexPath,
     loginPath: state => state.loginPath,
     logoutPath: state => state.logoutPath,
-    isMobile: state => state.isMobile
+    updatePwdPath: state => state.updatePwdPath,
+    isMobile: state => state.isMobile,
+    defaultThemeColors: state => state.defaultThemeColors,
+    customHeaderComp: state => state.customHeaderComp
   },
   mutations: {
     REMOVE_NAV_TAB_KEY: (state, value) => {
@@ -65,10 +69,12 @@ const appStore = {
       state.authName = sysInfo.authName
       state.sysMenus = sysInfo.menus || []
       state.modules = sysInfo.modules || []
-      state.iconList = sysInfo.iconList || []
       state.indexPath = sysInfo.indexPath
       state.loginPath = sysInfo.loginPath
       state.logoutPath = sysInfo.logoutPath
+      state.updatePwdPath = sysInfo.updatePwdPath
+      state.defaultThemeColors = sysInfo.defaultThemeColors || state.defaultThemeColors
+      state.customHeaderComp = sysInfo.customHeaderComp
       if (typeof sysInfo.isMobile === 'boolean') {
         state.isMobile = sysInfo.isMobile
       }

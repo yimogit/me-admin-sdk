@@ -21,6 +21,8 @@ import VTagEnable from './VTag/EnableTag'
 import VTagMoney from './VTag/MoneyTag'
 
 import VLayout from './VLayout/Index'
+import VPickerTheme from './VPicker/Theme'
+
 
 export default {
   VBtnAuth,
@@ -41,5 +43,6 @@ export default {
   VTagCustom,
   VTagEnable,
   VTagMoney,
-  VLayout
+  VLayout,
+  VPickerTheme
 }

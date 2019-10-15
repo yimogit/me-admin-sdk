@@ -48,7 +48,9 @@ const defRoutes = [
     ]
   }
 ]
-const router = new Router()
+const router = new Router({
+  mode: 'history'
+})
 
 export default router
 

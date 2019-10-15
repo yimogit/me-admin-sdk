@@ -142,6 +142,7 @@ MeAdminSdk.register({
     modules: ['*']
   },
   router: {
+    mode:'history',
     routes: routes
   }
 })

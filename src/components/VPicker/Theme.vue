@@ -15,7 +15,7 @@ export default {
     return {
       chalk: "",
       theme: DEFAULT_THEME,
-      predefineColors: ["#409EFF", "#3EBBB1", "#BB963E"]
+      predefineColors: []
     };
   },
   created() {
@@ -25,7 +25,7 @@ export default {
       DEFAULT_THEME;
     this.predefineColors =
       JSON.parse(localStorage.historyPreThemeColor || "null") ||
-      this.predefineColors;
+      this.$store.getters.defaultThemeColors;
   },
   watch: {
     theme(val, oldVal) {

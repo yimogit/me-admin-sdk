@@ -4,7 +4,8 @@
       :style="headerStyle"
       class="custom-theme-bg"
     >
-      <v-app-header>
+      <component :is="$store.getters.customHeaderComp" v-if="$store.getters.customHeaderComp"></component>
+      <v-app-header v-else>
         <div
           slot="left"
           style="margin-right: 5px;"
@@ -64,7 +65,7 @@
           :style="{'height':(innerHeight-this.headerHeight)+'px'}"
           v-if="isMobile||!showMenusBlock"
         >
-          <router-view :key="key" />
+          <router-view :key="routerkey" />
         </v-app-main>
         <v-app-main
           class="layout-main-content"
@@ -74,7 +75,7 @@
             :include="cacheViews"
             :max="20"
           >
-            <router-view :key="key" />
+            <router-view :key="routerkey" />
           </keep-alive>
         </v-app-main>
         <ul
@@ -242,7 +243,7 @@ export default {
     cacheViews() {
       return this.$store.state.app.cacheViews;
     },
-    key() {
+    routerkey() {
       // var key = this.$route.fullPath.replace(new RegExp(/(.*?)(\?|&)cv1=[\d]+/), '$1')
       // return key
       return this.$route.fullPath.replace(/\//g, "_");

@@ -56,7 +56,6 @@ window.sdkOptions = {
     },
     loginPath: '/login',
     logoutPath: '/logout',
-    iconList: [],
     menus: [
       {
         menuId: 'a3361b3ceada4fc8bc1a65969fb652b9',

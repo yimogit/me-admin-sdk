@@ -25,7 +25,6 @@ const { router, store } = register({
     authName: '管理员',
     sysTitle: 'XXX后台管理系统',
     sysLogo: '',
-    iconList: [],
     menus: [
       {
         menuId: 'a3361b3ceada4fc8bc1a65969fb652b9',
