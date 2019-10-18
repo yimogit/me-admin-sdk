@@ -17,10 +17,19 @@ export default {
       type: String,
       default: 'cache_cascaer_' + Date.now
     },
+    filterable: {
+      type: Boolean,
+      default: true
+    },
+    clearable: {
+      type: Boolean,
+      default: true
+    },
     //element-ui-table组件原始属性
     elOpt: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   },
   data() {

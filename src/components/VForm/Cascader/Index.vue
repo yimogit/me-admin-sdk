@@ -4,12 +4,12 @@
     :ref="refName"
     :options="showOptions"
     @change="on_select_change"
-    filterable
     @focus="search"
     @blur="on_blur"
     v-model="currentValue"
-    clearable
     :change-on-select="changeSelect"
+    :filterable="filterable"
+    :clearable="clearable"
     v-bind="elOpt"
   ></el-cascader>
 </template>
