@@ -62,7 +62,7 @@
         </el-tabs>
         <v-app-main
           class="layout-main-content-mobile"
-          :style="{'height':(innerHeight-this.headerHeight)+'px'}"
+          :style="{'height':(innerHeight-this.headerHeight-30)+'px'}"
           v-if="isMobile||!showMenusBlock"
         >
           <router-view :key="routerkey" />
