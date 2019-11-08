@@ -97,6 +97,8 @@ module.exports = {
 <script type="text/javascript">
       MeAdminSdk.register(options)
 </script>
+<!--引入则使用上传组件时压缩jpg图片-->
+<script src="https://unpkg.com/qc-image-lrz@0.0.1/dist/qc-image-lrz.js"></script>
 ```
 
 ## options

@@ -9,7 +9,7 @@ const version = JSON.stringify(require('./package.json').version)
 module.exports = {
   entry: nodeEnv === 'production' ? './src/index.js' : './example/dev/main.js',
   output: {
-    path: path.resolve(__dirname, nodeEnv === 'example'?'./example/dist':'./dist'),
+    path: path.resolve(__dirname, nodeEnv === 'example' ? './example/dist' : './dist'),
     publicPath: '/dist/',
     filename:
       nodeEnv === 'production'
@@ -27,38 +27,44 @@ module.exports = {
   },
   externals: isMini
     ? {
-        vue: {
-          root: 'Vue',
-          commonjs2: 'vue',
-          amd: 'vue',
-          commonjs: 'vue'
-        },
-        vuex: {
-          root: 'Vuex',
-          commonjs2: 'vuex',
-          amd: 'vuex',
-          commonjs: 'vuex'
-        },
-        axios: 'axios',
-        nprogress: {
-          root: 'NProgress',
-          commonjs2: 'nprogress',
-          amd: 'nprogress',
-          commonjs: 'nprogress'
-        },
-        'vue-router': {
-          root: 'VueRouter',
-          commonjs2: 'vue-router',
-          amd: 'vue-router',
-          commonjs: 'vue-router'
-        },
-        'element-ui': {
-          root: 'ELEMENT',
-          commonjs2: 'element-ui',
-          amd: 'element-ui',
-          commonjs: 'element-ui'
-        }
+      vue: {
+        root: 'Vue',
+        commonjs2: 'vue',
+        amd: 'vue',
+        commonjs: 'vue'
+      },
+      vuex: {
+        root: 'Vuex',
+        commonjs2: 'vuex',
+        amd: 'vuex',
+        commonjs: 'vuex'
+      },
+      axios: 'axios',
+      nprogress: {
+        root: 'NProgress',
+        commonjs2: 'nprogress',
+        amd: 'nprogress',
+        commonjs: 'nprogress'
+      },
+      'vue-router': {
+        root: 'VueRouter',
+        commonjs2: 'vue-router',
+        amd: 'vue-router',
+        commonjs: 'vue-router'
+      },
+      'element-ui': {
+        root: 'ELEMENT',
+        commonjs2: 'element-ui',
+        amd: 'element-ui',
+        commonjs: 'element-ui'
+      },
+      'qc-image-lrz': {
+        root: 'QcImageLrz',
+        commonjs2: 'qc-image-lrz',
+        amd: 'qc-image-lrz',
+        commonjs: 'qc-image-lrz'
       }
+    }
     : {},
   module: {
     rules: [
@@ -191,74 +197,78 @@ if (nodeEnv === 'production') {
     new CopyWebpackPlugin(
       isMini
         ? [
-            {
-              from: 'node_modules/vue/dist/vue.min.js',
-              to: 'libs/vue/index.js'
-            },
-            {
-              from: 'node_modules/vue-router/dist/vue-router.min.js',
-              to: 'libs/vue-router/index.js'
-            },
-            {
-              from: 'node_modules/vuex/dist/vuex.min.js',
-              to: 'libs/vuex/index.js'
-            },
-            {
-              from: 'node_modules/axios/dist/axios.min.js',
-              to: 'libs/axios/index.js'
-            },
-            {
-              from: 'node_modules/element-ui/lib/theme-chalk/index.css',
-              to: 'libs/element-ui/index.css'
-            },
-            {
-              from: 'node_modules/element-ui/lib/theme-chalk/fonts/',
-              to: 'libs/element-ui/fonts/'
-            },
-            {
-              from: 'node_modules/element-ui/lib/index.js',
-              to: 'libs/element-ui/index.js'
-            },
-            {
-              from: 'node_modules/nprogress/nprogress.css',
-              to: 'libs/nprogress/index.css',
-              transform: function(content, path) {
-                return Postcss([Cssnano])
-                  .process(content)
-                  .then(r => {
-                    return Promise.resolve(r.css)
-                  })
-              }
-            },
-            {
-              from: 'node_modules/nprogress/nprogress.js',
-              to: 'libs/nprogress/index.js',
-              transform: function(content, path) {
-                return Terser.minify(content.toString()).code
-              }
+          {
+            from: 'node_modules/vue/dist/vue.min.js',
+            to: 'libs/vue/index.js'
+          },
+          {
+            from: 'node_modules/vue-router/dist/vue-router.min.js',
+            to: 'libs/vue-router/index.js'
+          },
+          {
+            from: 'node_modules/vuex/dist/vuex.min.js',
+            to: 'libs/vuex/index.js'
+          },
+          {
+            from: 'node_modules/axios/dist/axios.min.js',
+            to: 'libs/axios/index.js'
+          },
+          {
+            from: 'node_modules/element-ui/lib/theme-chalk/index.css',
+            to: 'libs/element-ui/index.css'
+          },
+          {
+            from: 'node_modules/element-ui/lib/theme-chalk/fonts/',
+            to: 'libs/element-ui/fonts/'
+          },
+          {
+            from: 'node_modules/element-ui/lib/index.js',
+            to: 'libs/element-ui/index.js'
+          },
+          {
+            from: 'node_modules/nprogress/nprogress.css',
+            to: 'libs/nprogress/index.css',
+            transform: function (content, path) {
+              return Postcss([Cssnano])
+                .process(content)
+                .then(r => {
+                  return Promise.resolve(r.css)
+                })
             }
-          ]
+          },
+          {
+            from: 'node_modules/nprogress/nprogress.js',
+            to: 'libs/nprogress/index.js',
+            transform: function (content, path) {
+              return Terser.minify(content.toString()).code
+            }
+          },
+          {
+            from: 'node_modules/qc-image-lrz/dist/qc-image-lrz.js',
+            to: 'libs/qc-image-lrz/index.js'
+          }
+        ]
         : [
-            {
-              from: 'node_modules/element-ui/lib/theme-chalk/index.css',
-              to: 'libs/element-ui/index.css'
-            },
-            {
-              from: 'node_modules/element-ui/lib/theme-chalk/fonts/',
-              to: 'libs/element-ui/fonts/'
-            },
-            {
-              from: 'node_modules/nprogress/nprogress.css',
-              to: 'libs/nprogress/index.css',
-              transform: function(content, path) {
-                return Postcss([Cssnano])
-                  .process(content)
-                  .then(r => {
-                    return Promise.resolve(r.css)
-                  })
-              }
+          {
+            from: 'node_modules/element-ui/lib/theme-chalk/index.css',
+            to: 'libs/element-ui/index.css'
+          },
+          {
+            from: 'node_modules/element-ui/lib/theme-chalk/fonts/',
+            to: 'libs/element-ui/fonts/'
+          },
+          {
+            from: 'node_modules/nprogress/nprogress.css',
+            to: 'libs/nprogress/index.css',
+            transform: function (content, path) {
+              return Postcss([Cssnano])
+                .process(content)
+                .then(r => {
+                  return Promise.resolve(r.css)
+                })
             }
-          ]
+          }
+        ]
     )
   ])
 }

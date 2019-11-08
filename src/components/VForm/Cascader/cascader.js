@@ -13,9 +13,13 @@ export default {
     changeSelect: Boolean,
     placeholder: String,
     apiFunc: Function,
+    cacheKeyPrefix: {
+      type: String,
+      default: 'MeAdminSdk_SelectOptions'
+    },
     cacheKey: {
       type: String,
-      default: 'cache_cascaer_' + Date.now
+      default: 'cache_cascaer_' + Date.now()
     },
     filterable: {
       type: Boolean,
@@ -99,10 +103,10 @@ export default {
       if (this.options.length > 0) return Promise.resolve('error')
       if (
         this.cacheKey &&
-        window.selectOptions &&
-        window.selectOptions[this.cacheKey]
+        window[this.cacheKeyPrefix] &&
+        window[this.cacheKeyPrefix][this.cacheKey]
       ) {
-        this.options = window.selectOptions[this.cacheKey]
+        this.options = window[this.cacheKeyPrefix][this.cacheKey]
         return Promise.resolve('cache')
       }
       this.loadtype = 'loading'
@@ -110,11 +114,11 @@ export default {
         .then(resp => {
           this.options = this.mapLabel(resp.data)
           this.loadtype = resp.data.length === 0 ? 'nodata' : ''
-          if (this.cacheKey && window.selectOptions == null) {
-            window.selectOptions = {}
+          if (this.cacheKey && window[this.cacheKeyPrefix] == null) {
+            window[this.cacheKeyPrefix] = {}
           }
           if (this.cacheKey) {
-            window.selectOptions[this.cacheKey] = this.options
+            window[this.cacheKeyPrefix][this.cacheKey] = this.options
           }
         })
         .catch(e => {
@@ -177,7 +181,7 @@ export default {
       })(_items, _val, []).reverse()
     },
     clearCache() {
-      if (this.cacheKey) window.selectOptions[this.cacheKey] = null
+      if (this.cacheKey) window[this.cacheKeyPrefix][this.cacheKey] = null
     }
   },
   destroyed() {

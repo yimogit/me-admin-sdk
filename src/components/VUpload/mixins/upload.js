@@ -1,3 +1,5 @@
+
+import QcImageLrz from 'qc-image-lrz'
 export default {
   props: {
     value: {
@@ -32,7 +34,14 @@ export default {
     //element-ui-table组件原始属性
     elOpt: {
       type: Object,
-      default: () => {}
+      default: () => { }
+    },
+    uploadHandler: {
+      type: Function,
+    },
+    compressTypes: {
+      type: Array,
+      default: () => ['image/jpeg']
     }
   },
   data() {
@@ -41,17 +50,32 @@ export default {
     }
   },
   methods: {
-    uploadAction(fromData, category) {
-      return this.$store.dispatch('uploadAction', { fromData, category })
+    uploadAction(fromData, category, file) {
+      if (!this.checkSize(file)) {
+        return Promise.reject('error')
+      }
+      if (this.uploadHandler) {
+        return this.uploadHandler(fromData, category, file)
+      }
+      return this.$store.dispatch('uploadAction', { fromData, category, file })
     },
     beforeUpload(file) {
+      if (this.compressTypes && this.compressTypes.indexOf(file.type) > -1 && typeof (QcImageLrz) !== 'undefined') {
+        const ilt = new QcImageLrz()
+        return ilt.compress(file, { resultMode: 'file' }).then(compressRes => {
+          return compressRes
+        })
+      }
+      else {
+        return this.checkSize(file)
+      }
+    },
+    checkSize(file) {
       const isLt = file.size / 1024 / 1024 < this.maxSize
       if (!isLt) {
         this.$ui.pages.warn('上传文件大小不能超过 ' + this.maxSize + 'MB!')
-        return isLt
       }
-      this.fileList = []
-      return true
+      return isLt
     }
   }
 }

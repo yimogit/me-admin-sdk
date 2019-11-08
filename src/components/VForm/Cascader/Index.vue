@@ -6,6 +6,9 @@
     @change="on_select_change"
     @focus="search"
     @blur="on_blur"
+    @expand-change="$emit('expand-change')"
+    @visible-change="$emit('visible-change')"
+    @remove-tag="$emit('remove-tag')"
     v-model="currentValue"
     :change-on-select="changeSelect"
     :filterable="filterable"
@@ -16,10 +19,6 @@
 <script>
 import cascader from './cascader.js'
 export default {
-  mixins: [cascader],
-  data() {
-    return {
-    }
-  }
+  mixins: [cascader]
 }
 </script>

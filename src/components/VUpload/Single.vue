@@ -9,7 +9,12 @@
     :disabled="isUploading"
     v-bind="elOpt"
   >
-    <img v-if="prewiewUrl && !isFile" :src="prewiewUrl" :style="styleName" :class="classValue">
+    <img
+      v-if="prewiewUrl && !isFile"
+      :src="prewiewUrl"
+      :style="styleName"
+      :class="classValue"
+    >
     <i
       v-if="!prewiewUrl"
       :style="styleName"
@@ -24,80 +29,85 @@
     >
       <i class="el-icon-document"></i>
     </span>
-    <span class="single-file-delete" v-if="prewiewUrl" @click.stop="handleRemove">
+    <span
+      class="single-file-delete"
+      v-if="prewiewUrl"
+      @click.stop="handleRemove"
+    >
       <i class="el-icon-delete"></i>
     </span>
   </el-upload>
 </template>
 <script>
-import Upload from './mixins/upload'
+import Upload from "./mixins/upload";
 export default {
   mixins: [Upload],
   props: {
     value: String,
     styleName: {
       type: String,
-      default: 'width:100px;height:100px;line-height:100px;'
+      default: "width:100px;height:100px;line-height:100px;"
     },
     className: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   data() {
     return {
-      classValue: this.className + ' single-img',
-      prewiewUrl: '',
-      imageUrl: '',
+      classValue: this.className + " single-img",
+      prewiewUrl: "",
+      imageUrl: "",
       isUploading: false
-    }
+    };
   },
   created() {
     this.prewiewUrl = this.value
       ? this.$ui.pages.getDownloadUrl(this.value)
-      : ''
+      : "";
   },
   watch: {
     value(val) {
-      this.imageUrl = val
+      this.imageUrl = val;
     },
     imageUrl(val) {
-      this.prewiewUrl = this.$ui.pages.getDownloadUrl(val)
+      this.prewiewUrl = this.$ui.pages.getDownloadUrl(val);
     }
   },
   methods: {
     uploadImg(e) {
-      const _this = this
-      if (_this.isUploading) return
-      _this.isUploading = true
-      _this.$ui.pages.showProgress()
-      var formData = new FormData()
-      formData.append(_this.formName, e.file) // 文件对象
-      _this
-        .uploadAction(formData, _this.category)
-        .then(res => {
-          _this.isUploading = false
-          if (res.status !== 1) {
-            return _this.$ui.pages.warn(res.msg)
-          }
-          // _this.imageUrl = res.data.filePath // 监听的value会自动更新
-          _this.imageUrl = res.data
-          _this.$emit('input', _this.imageUrl)
-          _this.$emit('change', res.data)
-          _this.$ui.pages.hideProgress()
-        })
-        .catch(() => {
-          _this.$ui.pages.hideProgress()
-          _this.isUploading = false
-        })
+      const _this = this;
+      if (_this.isUploading) return;
+      _this.isUploading = true;
+      _this.$ui.pages.showProgress();
+      var formData = new FormData();
+      formData.append(_this.formName, e.file); // 文件对象
+      var uploadAct = _this.uploadAction(formData, _this.category, e.file);
+      uploadAct &&
+        uploadAct
+          .then(res => {
+            _this.isUploading = false;
+            if (res.status !== 1) {
+              return _this.$ui.pages.warn(res.msg);
+            }
+            // _this.imageUrl = res.data.filePath // 监听的value会自动更新
+            _this.imageUrl = res.data;
+            _this.$emit("input", _this.imageUrl);
+            _this.$emit("change", res.data);
+            _this.$ui.pages.hideProgress();
+          })
+          .catch(() => {
+            _this.$ui.pages.hideProgress();
+            _this.isUploading = false;
+          });
     },
     handleRemove() {
-      this.prewiewUrl = ''
-      this.imageUrl = ''
-      this.$emit('input', this.imageUrl)
+      this.prewiewUrl = "";
+      this.imageUrl = "";
+      this.$emit("input", this.imageUrl);
     }
   }
-}
+};
 </script>
 <style >
 /*单文件上传 */

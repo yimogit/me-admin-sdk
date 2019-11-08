@@ -51,37 +51,30 @@ export default {
     }
   },
   methods: {
-    beforeUpload(file) {
-      const isLt = file.size / 1024 / 1024 < this.maxSize;
-      if (!isLt) {
-        this.$ui.pages.warn("上传文件大小不能超过 " + this.maxSize + "MB!");
-        return isLt;
-      }
-      return true;
-    },
     uploadImg(e) {
       const _this = this;
       _this.$ui.pages.showProgress();
       var formData = new FormData();
       formData.append(_this.formName, e.file); // 文件对象
-      _this
-        .uploadAction(formData, _this.category)
-        .then(res => {
-          if (res.status !== 1) {
-            return _this.$ui.pages.warn(res.msg);
-          }
-          const tempValue = _this.currentValue;
-          _this.fileList.push({
-            name: res.data,
-            url: res.data
+      var uploadAct = _this.uploadAction(formData, _this.category, e.file);
+      uploadAct &&
+        uploadAct
+          .then(res => {
+            if (res.status !== 1) {
+              return _this.$ui.pages.warn(res.msg);
+            }
+            const tempValue = _this.currentValue;
+            _this.fileList.push({
+              name: res.data,
+              url: res.data
+            });
+            tempValue.push(res.data);
+            _this.$emit("input", tempValue);
+            _this.$ui.pages.hideProgress();
+          })
+          .catch(e => {
+            _this.$ui.pages.hideProgress();
           });
-          tempValue.push(res.data);
-          _this.$emit("input", tempValue);
-          _this.$ui.pages.hideProgress();
-        })
-        .catch(e => {
-          _this.$ui.pages.hideProgress();
-        });
     },
     handleRemove(file, fileList) {
       const tempValue = this.currentValue.filter((e, i) => i !== file.name);
