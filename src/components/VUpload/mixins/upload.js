@@ -42,6 +42,14 @@ export default {
     compressTypes: {
       type: Array,
       default: () => ['image/jpeg']
+    },
+    lrzInitOptions: {
+      type: Object,
+      default: {}
+    },
+    lrzOptions: {
+      type: Object,
+      default: {}
     }
   },
   data() {
@@ -61,8 +69,10 @@ export default {
     },
     beforeUpload(file) {
       if (this.compressTypes && this.compressTypes.indexOf(file.type) > -1 && typeof (QcImageLrz) !== 'undefined') {
-        const ilt = new QcImageLrz()
-        return ilt.compress(file, { resultMode: 'file' }).then(compressRes => {
+        const ilt = new QcImageLrz(null, this.lrzInitOptions)
+        return ilt.compress(file, Object.assign({
+          resultMode: 'file'
+        }, this.lrzOptions)).then(compressRes => {
           return compressRes
         })
       }

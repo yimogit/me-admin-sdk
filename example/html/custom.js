@@ -1,6 +1,6 @@
 var Layout = { template: '<v-layout/>' }
 
-MeAdminSdk.registerApi('mission', function(request) {
+MeAdminSdk.registerApi('mission', function (request) {
   return {
     getMissionList(params) {
       return request({
@@ -19,7 +19,7 @@ MeAdminSdk.registerApi('mission', function(request) {
     }
   }
 })
-MeAdminSdk.registerCodes(null, function() {
+MeAdminSdk.registerCodes(null, function () {
   return {
     index_path: '/',
     login_path: '/login',
@@ -39,7 +39,33 @@ window.sdkOptions = {
       githubUrl: state => 'https://github.com/yimogit/me-admin-sdk'
     },
     mutations: {},
-    actions: {}
+    actions: {
+      uploadAction({ commit }, d) {
+        console.log('开始上传', d)
+        return new Promise((resolve, reject) => {
+          var reader = new FileReader()
+          reader.onload = function () {
+            resolve({
+              status: 1,
+              data: this.result
+            })
+          }
+          reader.readAsDataURL(d.file)
+          // if (d.category) {
+          //   d.fromData.append('category', d.category)
+          // }
+        })
+        // return __currentApp.$ui.fetch.post(null, null, {
+        //     url: 'common/upload',
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data'
+        //     },
+        //     transformRequest: function (data) { return data },
+        //     data: d.fromData
+        // })
+      }
+    }
   },
   // 系统信息
   sysInfo: {
@@ -47,12 +73,12 @@ window.sdkOptions = {
     sysTitle: 'XXX后台管理系统',
     sysLogo: null,
     sysTheme: 'red',
-    sysNavTheme:{
-      backgroundColor:'#545c64',
-      textColor:'#fff',
-      activeTextColor:'#ffd04b',
-      uniqueOpened:false,
-      collapseTransition:false
+    sysNavTheme: {
+      backgroundColor: '#545c64',
+      textColor: '#fff',
+      activeTextColor: '#ffd04b',
+      uniqueOpened: false,
+      collapseTransition: false
     },
     loginPath: '/login',
     logoutPath: '/logout',
@@ -60,9 +86,22 @@ window.sdkOptions = {
       {
         menuId: 'a3361b3ceada4fc8bc1a65969fb652b9',
         menuName: '控制台',
-        menuIcon: 'iconfont icon-dashboard',
         menuCode: 'home',
         children: null
+      },
+      {
+        menuId: 'common_upload_test',
+        menuName: '组件测试',
+        menuCode: 'comps_upload_lrz',
+        children: [
+          {
+            menuId: 'comps_upload_lrz',
+            menuName: '上传组件',
+            menuIcon: 'iconfont icon-dashboard',
+            menuCode: 'comps_upload_lrz',
+            children: null
+          },
+        ]
       },
       {
         menuId: '4ae619b2e52d4f2daa80674603a16b2a',
@@ -130,6 +169,21 @@ window.sdkOptions = {
         ]
       },
       {
+        path: '/comps',
+        component: Layout,
+        children: [{
+          path: 'comps/upload',
+          name: 'comps_upload_lrz',
+          component: {
+            name: 'comps_upload_lrz',
+            template: '<div>上传图片压缩jpg/png <v-upload-s :lrzInitOptions="{dev:true,width:300}" :compressTypes="[\'image/jpeg\', \'image/png\']"/></div>'
+          },
+          meta: {
+            title: '上传组件',
+          }
+        }]
+      },
+      {
         path: '/system',
         component: Layout,
         children: [
@@ -173,7 +227,7 @@ window.sdkOptions = {
             name: 'system_admin_create',
             component: {
               name: 'system_admin_create',
-              template: '<div>管理员创建<v-form-input/></div>'
+              template: '<div>管理员创建<v-form-input/><v-upload-s :lrzInitOptions="{dev:true,width:300}"/></div>'
             },
             meta: {
               cache: true,
