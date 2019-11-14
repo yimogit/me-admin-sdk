@@ -4,7 +4,22 @@
     :model="form"
     label-width="80px"
   >
-    <el-form-item label="活动名称"  v-input-small>
+    <el-form-item
+      label="活动名称"
+      v-input-small
+    >
+      <v-form-input
+        validate="number"
+        v-model="form.name"
+        :maxlength="10"
+        show-word-limit
+        @change="changeInput"
+      ></v-form-input>{{form.name}}
+    </el-form-item>
+    <el-form-item
+      label="活动名称"
+      v-input-small
+    >
       <el-input v-model="form.name"></el-input>
     </el-form-item>
     <el-form-item label="活动区域">
@@ -22,7 +37,10 @@
         ></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="活动时间"  v-input-small >
+    <el-form-item
+      label="活动时间"
+      v-input-small
+    >
       <el-col :span="11">
         <el-date-picker
           type="date"
@@ -73,7 +91,10 @@
         <el-radio label="线下场地免费"></el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="活动形式" class="custom-input-small">
+    <el-form-item
+      label="活动形式"
+      class="custom-input-small"
+    >
       <el-input
         type="textarea"
         v-model="form.desc"
@@ -112,6 +133,10 @@ export default {
   methods: {
     onSubmit() {
       console.log("submit!");
+      console.log(this.form);
+    },
+    changeInput(val) {
+      console.log("555", val);
     }
   }
 };

@@ -15,13 +15,13 @@
     @focus="loadData(true)"
     :multiple="multiple"
     :placeholder="placeholder"
-    ref="currentSelect"
+    :ref="refName"
     v-bind="elOpt"
   >
     <el-option
       v-for="item in options"
       :key="item.value"
-      :label="item.text"
+      :label="item.text||item.label"
       :value="item.value"
     >
     </el-option>
@@ -44,8 +44,7 @@ export default {
       default: true
     },
     apiFunc: {
-      type: Function,
-      required: true
+      type: Function
     },
     //element-ui-table组件原始属性
     elOpt: {
@@ -78,12 +77,16 @@ export default {
   },
   data() {
     return {
+      refName: "select_" + Date.now() + parseInt(Math.random() * 100000),
       options: [],
       currentValue: this.multiple ? [] : null,
       isloading: false
     };
   },
   methods: {
+    getRef() {
+      return this.$refs[this.refName];
+    },
     change(val) {
       if (this.multipleSplit) {
         this.$emit("input", (val || []).join(","));
@@ -92,6 +95,11 @@ export default {
       }
     },
     loadData(autoOpen) {
+      if (!this.apiFunc && this.elOpt.options) {
+        this.options = this.elOpt.options;
+        this.isloading = false;
+        return;
+      }
       if (this.isloading || this.options.length > 0 || !this.apiFunc) return;
       this.isloading = true;
       setTimeout(() => {
@@ -102,7 +110,7 @@ export default {
               return s;
             });
             this.isloading = false;
-            if (autoOpen) this.$refs.currentSelect.selectOption();
+            if (autoOpen) this.$refs[this.refName].selectOption();
           })
           .catch(_ => {
             this.isloading = false;

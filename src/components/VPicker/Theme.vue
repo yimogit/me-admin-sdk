@@ -11,6 +11,9 @@
 const version = require("element-ui/package.json").version;
 const DEFAULT_THEME = "#409EFF"; // default color
 export default {
+  props: {
+    themeUrl: String
+  },
   data() {
     return {
       chalk: "",
@@ -54,13 +57,17 @@ export default {
       };
       const chalkHandler = getHandler("chalk", "chalk-style");
       if (!this.chalk) {
-        var url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`;
+        var url = this.themeUrl || `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`;
         if (location.host) {
           url =
             [].slice
               .call(document.querySelectorAll("link"))
               .map(s => s.href)
-              .find(s => s.indexOf("element-ui/index.css") > 0) || url;
+              .find(
+                s =>
+                  s.indexOf("element-ui/index.css") > 0 ||
+                  s.indexOf("element-ui.css") > 0
+              ) || url;
         }
         this.getCSSString(url, chalkHandler, "chalk");
       } else {

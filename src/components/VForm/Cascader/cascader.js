@@ -1,6 +1,5 @@
 export default {
   props: {
-    id: String,
     displayType: {
       type: String,
       default: 'text'
@@ -9,7 +8,8 @@ export default {
       type: String,
       default: 'value'
     },
-    value: [String, Number],
+    renderPanel: Boolean,
+    value: [String, Number, Array],
     changeSelect: Boolean,
     placeholder: String,
     apiFunc: Function,
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      refName: this.id || 'cascaer_' + Date.now,
+      refName: 'cascaer_' + Date.now() + parseInt(Math.random() * 100000),
       currentValue: [],
       loadtype: '', // loading nodata
       options: [],
@@ -69,6 +69,12 @@ export default {
   watch: {
     value: {
       handler(val) {
+        if (this.isMultiple) {
+          this.search().then(() => {
+            this.currentValue = val
+          })
+          return;
+        }
         val = String(val || '')
         if (this.lastValue === String(val)) return
         this.search().then(() => {
@@ -80,6 +86,9 @@ export default {
     }
   },
   computed: {
+    isMultiple() {
+      return this.elOpt && this.elOpt.props && this.elOpt.props.multiple
+    },
     showOptions() {
       if (this.loadtype === 'loading') return this.loadOptions
       if (this.loadtype === 'nodata') return this.noOptions
@@ -88,6 +97,9 @@ export default {
     }
   },
   methods: {
+    getRef() {
+      return this.$refs[this.refName]
+    },
     currentLabels() {
       return this.$refs[this.refName].currentLabels
     },
@@ -95,6 +107,11 @@ export default {
       this.$emit('blur', e)
     },
     on_select_change(val) {
+      if (this.isMultiple) {
+        this.$emit('input', val)
+        this.$emit('change', val)
+        return
+      }
       this.lastValue = val[val.length - 1]
       this.$emit('input', this.lastValue)
       this.$emit('change', val)
@@ -109,21 +126,29 @@ export default {
         this.options = window[this.cacheKeyPrefix][this.cacheKey]
         return Promise.resolve('cache')
       }
+      if (!this.apiFunc && this.elOpt.options) {
+        this.options = this.elOpt.options
+        this.setData(this.options)
+        return Promise.resolve('static')
+      }
       this.loadtype = 'loading'
       return this.apiFunc()
         .then(resp => {
           this.options = this.mapLabel(resp.data)
-          this.loadtype = resp.data.length === 0 ? 'nodata' : ''
-          if (this.cacheKey && window[this.cacheKeyPrefix] == null) {
-            window[this.cacheKeyPrefix] = {}
-          }
-          if (this.cacheKey) {
-            window[this.cacheKeyPrefix][this.cacheKey] = this.options
-          }
+          this.setData(this.options)
         })
         .catch(e => {
           this.loadtype = 'error'
         })
+    },
+    setData(options) {
+      this.loadtype = options.length === 0 ? 'nodata' : ''
+      if (this.cacheKey && window[this.cacheKeyPrefix] == null) {
+        window[this.cacheKeyPrefix] = {}
+      }
+      if (this.cacheKey) {
+        window[this.cacheKeyPrefix][this.cacheKey] = options
+      }
     },
     mapLabel(items) {
       return items.map(e1 => {

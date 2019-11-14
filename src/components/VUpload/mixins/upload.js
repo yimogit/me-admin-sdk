@@ -43,14 +43,8 @@ export default {
       type: Array,
       default: () => ['image/jpeg']
     },
-    lrzInitOptions: {
-      type: Object,
-      default: {}
-    },
-    lrzOptions: {
-      type: Object,
-      default: {}
-    }
+    lrzInitOptions: Object,
+    lrzOptions: Object
   },
   data() {
     return {

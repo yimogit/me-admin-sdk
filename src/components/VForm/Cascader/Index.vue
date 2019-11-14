@@ -1,5 +1,5 @@
 <template>
-  <el-cascader
+  <components :is="renderPanel?'el-cascader-panel':'el-cascader'"
     :placeholder="placeholder"
     :ref="refName"
     :options="showOptions"
@@ -14,7 +14,7 @@
     :filterable="filterable"
     :clearable="clearable"
     v-bind="elOpt"
-  ></el-cascader>
+  ></components>
 </template>
 <script>
 import cascader from './cascader.js'

@@ -8,7 +8,7 @@
       :height="tableHeight"
       :element-loading-text="loadingText"
       :border="border"
-      ref="mytable"
+      :ref="refName"
       @selection-change="on_selection_change"
       @sort-change="on_sort_change"
       :default-expand-all="defaultExpandAll"
@@ -145,9 +145,9 @@ export default {
      */
     pagerKeyConfig: Object,
     //element-ui-table组件原始属性
-    elOpt:{
-      type:Object,
-      default:()=>{}
+    elOpt: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -175,6 +175,7 @@ export default {
       pagedCriteria[pagedKeyConfig.columnOrder] = "";
     }
     return {
+      refName: "table_" + Date.now() + parseInt(Math.random() * 100000),
       pageSizes: pageSizes,
       pageLayout: this.pagerLayout || "total, sizes, prev, pager, next, jumper",
       loading: true,
@@ -265,10 +266,10 @@ export default {
       this.$emit("handle-checkbox", e);
     },
     on_row_dblclick(row, event) {
-      this.$refs.mytable.toggleRowSelection(row);
+      this.$refs[this.refName].toggleRowSelection(row);
     },
     currentTable() {
-      return this.$refs.mytable;
+      return this.$refs[this.refName];
     },
     getSelectorArr() {
       return this.select_arr;

@@ -7,6 +7,7 @@
     :value-format="format"
     v-model="currentValue"
     v-bind="elOpt"
+    :ref="refName"
   />
 </template>
 

@@ -31,7 +31,11 @@ import Upload from "./mixins/upload";
 export default {
   mixins: [Upload],
   props: {
-    value: Array
+    value: Array,
+    multiple: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {
