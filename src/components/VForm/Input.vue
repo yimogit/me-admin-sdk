@@ -54,7 +54,7 @@ export default {
     },
     validate: {
       type: String,
-      default: "" // number float
+      default: null // number float
     },
     fixed: {
       type: Number,
@@ -92,12 +92,11 @@ export default {
     },
     currentValue(val) {
       var newVal = this.convert(val);
-      if (newVal === val) {
-        return;
+      if (newVal !== val) {
+        this.currentValue = newVal;
+        this.$emit("change", newVal);
       }
-      this.currentValue = newVal;
       this.$emit("input", newVal);
-      this.$emit("change", newVal);
     }
   },
   methods: {
@@ -133,13 +132,11 @@ export default {
         default:
           break;
       }
-      if (this.validate !== "") {
-        if (typeof this.max === "number") {
-          val = Math.min(this.max, val);
-        }
-        if (typeof this.min === "number") {
-          val = Math.max(val, this.min);
-        }
+      if (this.validate && typeof this.max === "number") {
+        val = Math.min(this.max, val);
+      }
+      if (this.validate && typeof this.min === "number") {
+        val = Math.max(val, this.min);
       }
       return val;
     },

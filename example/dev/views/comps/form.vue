@@ -9,18 +9,22 @@
       v-input-small
     >
       <v-form-input
-        validate="number"
         v-model="form.name"
-        :maxlength="10"
+        :maxlength="20"
         show-word-limit
-        @change="changeInput"
       ></v-form-input>{{form.name}}
     </el-form-item>
     <el-form-item
-      label="活动名称"
+      label="数量"
       v-input-small
     >
-      <el-input v-model="form.name"></el-input>
+      <v-form-input
+        validate="number"
+        v-model="form.num"
+        :maxlength="10"
+        show-word-limit
+        @change="changeInput"
+      ></v-form-input>{{form.num}}
     </el-form-item>
     <el-form-item label="活动区域">
       <el-select
