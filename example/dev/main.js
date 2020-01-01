@@ -74,6 +74,7 @@ MeAdminSdk.register({
     sysTitle: 'XXX后台管理系统',
     sysLogo: '',
     iconList: [],
+    // indexPath:'/',
     sysNavTheme: {
       backgroundColor: '#545c64',
       textColor: '#fff',

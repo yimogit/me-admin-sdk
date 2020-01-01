@@ -55,7 +55,7 @@
             v-if="$store.getters.updatePwdPath"
           >修改密码</el-dropdown-item>
           <el-dropdown-item
-            v-if="$store.getters.sysMenus&&$store.getters.sysMenus.length>0"
+            v-if="$store.getters.sysMenus&&$store.getters.sysMenus.length>0&&!$store.getters.isMobile"
             command="disabledTab"
             divided
           >{{disabledTab?'启用':'禁用'}}选项卡</el-dropdown-item>
@@ -81,8 +81,9 @@ export default {
     showDropFunc() {
       return (
         this.$store.getters.updatePwdPath ||
-        (this.$store.getters.sysMenus &&
-          this.$store.getters.sysMenus.length > 0) ||
+        (this.$store.getters.sysMenus 
+        && this.$store.getters.sysMenus.length > 0 
+        && !this.$store.getters.isMobile) ||
         this.$store.getters.logoutPath
       );
     }

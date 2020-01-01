@@ -22,7 +22,7 @@ export const link = (route, isReplace) => {
     location.href = route.indexOf('///') === 0 ? route.replace('//', '') : route
     return
   }
-  isReplace ? router.replace(route) : router.push(route)
+  isReplace ? router.replace(route) : router.push(route).catch(err => {})
 }
 export function message(options) {
   return Message(options)

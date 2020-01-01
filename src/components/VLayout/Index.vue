@@ -276,7 +276,7 @@ export default {
       else return this.$ui.pages.link(currentRoute.tabRoute);
     },
     removeTab(targetName) {
-      // if (this.pageTabs.length === 1) return this.$ui.pages.warn("已经是最后一个选项卡了");
+      if (this.pageTabs.length === 1) return this.$ui.pages.warn("已经是最后一个选项卡了");
       this.$store.dispatch("delCacheView", targetName);
       this.pageTabs = this.pageTabs.filter(e => e.tabKey !== targetName);
       const currentRoute =
@@ -337,7 +337,7 @@ export default {
           this.$store.dispatch("clearCacheView");
           this.$ui.pages.link(
             "/redirect?data=" +
-              encodeURIComponent(JSON.stringify(this.$store.getters.indexPath))
+              encodeURIComponent(JSON.stringify(this.$store.getters.indexPath||this.$route.fullPath))
           );
           break;
       }
