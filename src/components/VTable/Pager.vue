@@ -296,7 +296,7 @@ export default {
       var search = Object.assign(this.pagedCriteria, this.loadSearch);
       this.loadAction(search)
         .then(res => {
-          if (typeof convertTableData === "function") {
+          if (typeof this.convertTableData === "function") {
             this.tableData = this.convertTableData(res);
             this.hideLoading();
             return;
