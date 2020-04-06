@@ -17,7 +17,8 @@ const appStore = {
     updatePwdPath: null,
     isMobile: window.innerWidth < 600,
     defaultThemeColors: [], //["#409EFF", "#3EBBB1", "#BB963E"],
-    customHeaderComp: null
+    customHeaderComp: null,
+    lastRoutePath:null
   },
   getters: {
     removeNavTab: state => state.removeNavTab,
@@ -35,7 +36,8 @@ const appStore = {
     updatePwdPath: state => state.updatePwdPath,
     isMobile: state => state.isMobile,
     defaultThemeColors: state => state.defaultThemeColors,
-    customHeaderComp: state => state.customHeaderComp
+    customHeaderComp: state => state.customHeaderComp,
+    lastRoutePath: state => state.lastRoutePath
   },
   mutations: {
     REMOVE_NAV_TAB_KEY: (state, value) => {
@@ -78,6 +80,9 @@ const appStore = {
       if (typeof sysInfo.isMobile === 'boolean') {
         state.isMobile = sysInfo.isMobile
       }
+    },
+    SET_LAST_ROUTE_PATH: (state, path) => {
+      state.lastRoutePath = path
     }
   },
   actions: {
@@ -96,6 +101,9 @@ const appStore = {
     },
     setSysInfo({ commit }, sysInfo) {
       commit('SET_SYS_INFO', sysInfo || {})
+    },
+    setLastRoutePath({ commit }, path) {
+      commit('SET_LAST_ROUTE_PATH', path)
     }
   }
 }

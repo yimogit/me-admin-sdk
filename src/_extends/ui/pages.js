@@ -22,6 +22,7 @@ export const link = (route, isReplace) => {
     location.href = route.indexOf('///') === 0 ? route.replace('//', '') : route
     return
   }
+  if (!isReplace && router.app.$route.name) store.dispatch("setLastRoutePath", router.app.$route.name)
   isReplace ? router.replace(route) : router.push(route).catch(err => {})
 }
 export function message(options) {
