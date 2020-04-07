@@ -54,7 +54,7 @@ export default {
       return;
     }
     this.$ui.pages.dynamicLoadJs(
-      "https://unpkg.com/yimo-vue-editor@1.1.3/dist/yimo-vue-editor.js",
+      "https://unpkg.com/yimo-vue-editor/dist/yimo-vue-editor.js",
       () => {
         window.Vue.use(YimoVueEditor, {
           name: "v-form-editor", //Custom name
