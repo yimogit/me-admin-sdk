@@ -279,13 +279,10 @@ export default {
       if (this.pageTabs.length === 1) return this.$ui.pages.warn("已经是最后一个选项卡了");
       this.$store.dispatch("delCacheView", targetName);
       this.pageTabs = this.pageTabs.filter(e => e.tabKey !== targetName);
-      let currentRoute =
+      const currentRoute =
         this.pageTabs.length > 0 &&
         this.pageTabs[this.pageTabs.length - 1].tabRoute;
-      if (this.$store.getters.lastRoutePath) {
-         currentRoute = { name: this.$store.getters.lastRoutePath };
-         this.$store.dispatch("setLastRoutePath", null)
-      }
+
       if (targetName !== this.currentTab) {
         return;
       }
