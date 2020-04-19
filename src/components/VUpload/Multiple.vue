@@ -45,13 +45,19 @@ export default {
     };
   },
   watch: {
-    value(val) {
-      this.currentValue = val || [];
+    value: {
+      handler(val) {
+        this.currentValue = val || [];
+      },
+      immediate:true
     },
-    currentValue(val) {
-      this.fileList = val.map((e, i) => {
-        return { name: i, url: this.$ui.pages.getDownloadUrl(e) };
-      });
+    currentValue:{
+      handler(val) {
+        this.fileList = val.map((e, i) => {
+          return { name: i, url: this.$ui.pages.getDownloadUrl(e) };
+        });
+      },
+      immediate:true
     }
   },
   methods: {

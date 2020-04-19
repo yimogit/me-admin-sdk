@@ -14,8 +14,8 @@
         <v-upload-m v-model="uploadMultipleValue" :multiple="true" />
       </div>
       <div>
-        多选上传单个文件：{{uploadMultipleValue.length}}
-        <v-upload-m v-model="uploadMultipleValue" is-file />
+        多选上传单个文件：{{uploadMultipleFileValue.length}}
+        <v-upload-m v-model="uploadMultipleFileValue" is-file />
       </div>
     </div>
   </div>
@@ -30,7 +30,8 @@ export default {
   data() {
     return {
       uploadSingleValue: '',
-      uploadMultipleValue: []
+      uploadMultipleValue: [],
+      uploadMultipleFileValue:[]
     }
   }
 }
