@@ -4,28 +4,24 @@
       <el-col :span="18">
         <el-form :inline="true">
           <el-form-item label="关键字">
-            <el-input
-              type="text"
-              v-model="search.keyword"
-            >
+            <el-input type="text" v-model="search.keyword">
               <el-button
                 slot="append"
                 icon="el-icon-search"
                 @click="e=>this.$refs.mytable.search()"
               ></el-button>
+              <el-button
+                slot="append"
+                icon="el-icon-refresh"
+                @click="e=>this.$refs.mytable.refresh()"
+              ></el-button>
             </el-input>
           </el-form-item>
         </el-form>
       </el-col>
-      <el-col
-        :span="6"
-        class="text-right"
-      >
+      <el-col :span="6" class="text-right">
         <!-- <v-btn-create @click="$ui.pages.link('/system/admin/create')" auth="system_admin_create">添加管理员</v-btn-create> -->
-        <v-btn-create
-          @click="showDialog({})"
-          auth="system_admin_create"
-        >添加管理员</v-btn-create>
+        <v-btn-create @click="showDialog({})" auth="system_admin_create">添加管理员</v-btn-create>
       </el-col>
     </el-row>
     <v-table-pager
@@ -42,26 +38,17 @@
       :defaultPageSize="10"
       :pagerCount="7"
       :pagerSingleHide="true"
-      @handle-radio="e=>$ui.pages.info(e.adminName)"
+      @handle-radio="e=>e&&$ui.pages.info(e.adminName)"
       @handle-checkbox="e=>{checkList=e;$ui.pages.info(e.map(s=>s.adminName))}"
       :pagerKeyConfig="pagerKeyConfig"
       :elOpt="{stripe:true}"
     >
       <div slot="toolbar">
-        <el-button
-          type="primary"
-          @click="e=>this.$ui.pages.info(checkList.length)"
-        >选中行数</el-button>
-        <el-button
-          type="danger"
-          @click="e=>this.$ui.pages.info(checkList.map(s=>s.adminName))"
-        >选择名称</el-button>
+        <el-button type="primary" @click="e=>this.$ui.pages.info(checkList.length)">选中行数</el-button>
+        <el-button type="danger" @click="e=>this.$ui.pages.info(checkList.map(s=>s.adminName))">选择名称</el-button>
       </div>
 
-      <el-table-column
-        type="expand"
-        :resizable="false"
-      >
+      <el-table-column type="expand" :resizable="false">
         <template>
           <p>表格嵌套,固定高度</p>
           <v-table-pager
@@ -69,46 +56,23 @@
             :auto-height="300"
             :pagerKeyConfig="pagerKeyConfig"
           >
-            <el-table-column
-              prop="adminName"
-              label="管理员名称"
-            >
-            </el-table-column>
+            <el-table-column prop="adminName" label="管理员名称"></el-table-column>
           </v-table-pager>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="adminName"
-        label="管理员名称"
-        sortable="custom"
-      >
-      </el-table-column>
+      <el-table-column prop="adminName" label="管理员名称" sortable="custom"></el-table-column>
       <el-table-column label="是否启用">
         <template slot-scope="prop">
           <v-tag-enable v-model="prop.row.isEnable" />
           <!-- <el-tag type="prop.row.isEnable?'success':'info'">{{prop.row.isEnable?'是':'否'}}</el-tag> -->
         </template>
       </el-table-column>
-      <el-table-column
-        prop="createdAt"
-        label="创建时间"
-      >
-      </el-table-column>
-      <el-table-column
-        width="180"
-        label="操作"
-      >
+      <el-table-column prop="createdAt" label="创建时间" sortable="custom"></el-table-column>
+      <el-table-column width="180" label="操作">
         <template slot-scope="prop">
-          <v-btn-edit
-            @click="showDialog({})"
-            auth="system_admin_edit"
-            icon="el-icon-document"
-          >编辑</v-btn-edit>
+          <v-btn-edit @click="showDialog({})" auth="system_admin_edit" icon="el-icon-document">编辑</v-btn-edit>
           <!-- <v-btn-edit @click="showDialog(prop.row)" auth="system_admin_edit">编辑</v-btn-edit> -->
-          <v-btn-del
-            @click="delAdmin"
-            auth="system_admin_del"
-          >删除</v-btn-del>
+          <v-btn-del @click="delAdmin(prop.row.id)" auth="system_admin_del">删除</v-btn-del>
         </template>
       </el-table-column>
     </v-table-pager>
@@ -120,9 +84,7 @@
       :visible.sync="editDialog.show"
       :close-on-click-modal="false"
     >
-      <div>
-        编辑
-      </div>
+      <div>编辑</div>
     </el-dialog>
   </div>
 </template>
@@ -140,8 +102,8 @@ export default {
         startPageIndex: 0,
         pageIndex: "page",
         pageSize: "size",
-        columnName: "",
-        columnOrder: "",
+        columnName: "columnName",
+        columnOrder: "columnOrder",
         rows: "items1",
         total: "totalCount1"
       },
@@ -165,41 +127,62 @@ export default {
     },
     delAdmin(id) {
       this.$ui.pages.confirm("确认删除？").then(res => {
-        this.delAdmin({ id: id }).then(res => {
-          if (res.status !== 1) return;
-          this.$ui.pages.success(res.msg);
-        });
+        window.TestDataItems=window.TestDataItems.filter(s=>s.id!==id)
+        this.$refs.mytable.search()
+        // this.delAdmin({ id: id }).then(res => {
+        //   if (res.status !== 1) return;
+        //   this.$ui.pages.success(res.msg);
+        // });
       });
     },
+    initData() {
+      if(window.TestDataItems){
+        return window.TestDataItems
+      }
+      var items = [];
+      var total = 100;
+      for (let index = 1; index <= total; index++) {
+        items.push({
+          id: index,
+          adminName: "admin_" + index,
+          isEnable: index % 3 === 0,
+          createdAt: "2005-06-01 18:14:" + String(index % 60).padStart(2, "0")
+        });
+      }
+      window.TestDataItems=items
+      return items;
+    },
+    pagination(pageNo, pageSize, array) {
+      var offset = pageNo * pageSize;
+      return offset + pageSize >= array.length
+        ? array.slice(offset, array.length)
+        : array.slice(offset, offset + pageSize);
+    },
     getAdminList(search) {
-      console.log(search);
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          var total = 100;
-          var items = [];
           var pageIndex =
             search[this.pagerKeyConfig.pageIndex] -
             this.pagerKeyConfig.startPageIndex;
           var pageSize = search[this.pagerKeyConfig.pageSize];
-          for (let index = 1; index <= pageSize; index++) {
-            items.push({
-              id: pageIndex * pageSize + index,
-              adminName: "admin_" + (pageIndex * pageSize + index),
-              isEnable: index % 3 === 0,
-              createdAt: "2005-06-01 18:14:20"
-            });
-          }
+
+          var items = this.initData().filter(
+            s => s.adminName.indexOf(search.keyword) > -1
+          );
           var data = {};
-          data[this.pagerKeyConfig.rows] = items;
-          data[this.pagerKeyConfig.total] = total;
+          data[this.pagerKeyConfig.rows] = this.pagination(
+            pageIndex,
+            pageSize,
+            items
+          );
+          data[this.pagerKeyConfig.total] = items.length;
           resolve({
             status: 1,
             data: data
           });
         }, 1000);
       });
-    },
-    delAdmin() {}
+    }
   }
 };
 </script>

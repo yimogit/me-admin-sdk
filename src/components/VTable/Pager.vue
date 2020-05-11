@@ -20,31 +20,15 @@
       @expand-change="(row,expandedRows)=>$emit('expand-change',row,expandedRows)"
       v-bind="elOpt"
     >
-      <el-table-column
-        v-if="showCheckbox"
-        type="selection"
-        width="40"
-        :resizable="false"
-      ></el-table-column>
-      <el-table-column
-        v-if="radioKey"
-        width="40"
-        :resizable="false"
-      >
+      <el-table-column v-if="showCheckbox" type="selection" width="40" :resizable="false"></el-table-column>
+      <el-table-column v-if="radioKey" width="40" :resizable="false">
         <template slot-scope="prop">
-          <el-radio
-            v-model="radio_index"
-            :label="prop.$index"
-            class="custom-table-radio"
-          ></el-radio>
+          <el-radio v-model="radio_index" :label="prop.$index" class="custom-table-radio"></el-radio>
         </template>
       </el-table-column>
       <slot></slot>
     </el-table>
-    <div
-      class="custom-table-toolbar"
-      v-show="!(toolbarLoadingHide&&loading)"
-    >
+    <div class="custom-table-toolbar" v-show="!(toolbarLoadingHide&&loading)">
       <slot name="toolbar"></slot>
     </div>
     <div class="custom-table-pager">
@@ -55,9 +39,9 @@
           background
           @size-change="on_size_change"
           @current-change="on_current_change"
-          :current-page="currentPage"
+          :current-page.sync="currentPage"
           :page-sizes="pageSizes"
-          :page-size="pagedCriteria[pagedKeyConfig.pageSize]"
+          :page-size="pageSize"
           :layout="pageLayout"
           :total="tableData.total"
           :pagerCount="pagerCount"
@@ -194,6 +178,11 @@ export default {
         (pagedKeyConfig.startPageIndex > 0 ? 0 : 1)
     };
   },
+  computed: {
+    pageSize() {
+      return this.pagedCriteria[this.pagedKeyConfig.pageSize];
+    }
+  },
   created() {
     this.initTableHeight();
     //isMobile=true时activated不触发
@@ -231,6 +220,7 @@ export default {
     },
     on_handle() {
       this.$emit("handle-pager", this.pagedCriteria);
+      this.showLoading();
       this.loadData();
     },
     on_sort_change(p) {
@@ -242,6 +232,7 @@ export default {
         this.pagedCriteria[this.pagedKeyConfig.columnName] = p.prop;
         this.pagedCriteria[this.pagedKeyConfig.columnOrder] =
           p.order === "descending" ? "desc" : "asc";
+       this.resetPageIndex();
       } else if (this.pagedKeyConfig.columnName) {
         this.pagedCriteria[this.pagedKeyConfig.columnName] = "";
         this.pagedCriteria[this.pagedKeyConfig.columnOrder] = "";
@@ -250,6 +241,7 @@ export default {
     },
     on_size_change(val) {
       this.showLoading();
+      this.resetPageIndex();
       this.pagedCriteria[this.pagedKeyConfig.pageSize] = val;
       this.on_handle();
     },
@@ -285,15 +277,23 @@ export default {
         this.loading = false;
       });
     },
-    search() {
+    resetPageIndex(){
+      this.currentPage = this.pagedKeyConfig.startPageIndex;
       this.pagedCriteria[
         this.pagedKeyConfig.pageIndex
       ] = this.pagedKeyConfig.startPageIndex;
-      this.showLoading();
-      this.loadData();
     },
-    loadData() {
-      var search = Object.assign(this.pagedCriteria, this.loadSearch);
+    refresh(s) {
+      this.showLoading();
+      this.loadData(s);
+    },
+    search(s) {
+      this.resetPageIndex();
+      this.showLoading();
+      this.loadData(s);
+    },
+    loadData(s) {
+      var search = Object.assign(this.pagedCriteria, this.loadSearch, s);
       this.loadAction(search)
         .then(res => {
           if (typeof this.convertTableData === "function") {
