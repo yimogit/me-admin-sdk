@@ -18,7 +18,8 @@ const appStore = {
     isMobile: window.innerWidth < 600,
     defaultThemeColors: [], //["#409EFF", "#3EBBB1", "#BB963E"],
     customHeaderComp: null,
-    lastRoutePath: null
+    lastRoutePath: null,
+    headerMsgLinks: []
   },
   getters: {
     removeNavTab: state => state.removeNavTab,
@@ -37,7 +38,8 @@ const appStore = {
     isMobile: state => state.isMobile,
     defaultThemeColors: state => state.defaultThemeColors,
     customHeaderComp: state => state.customHeaderComp,
-    lastRoutePath: state => state.lastRoutePath
+    lastRoutePath: state => state.lastRoutePath,
+    headerMsgLinks: state => state.headerMsgLinks
   },
   mutations: {
     REMOVE_NAV_TAB_KEY: (state, value) => {
@@ -83,6 +85,26 @@ const appStore = {
     },
     SET_LAST_ROUTE_PATH: (state, path) => {
       state.lastRoutePath = path
+    },
+    SET_HEADER_MSG_LINK: (state, item) => {
+      let findItem = state.headerMsgLinks.find(s=>s.name==item.name)
+      if (findItem) {
+        findItem.textColor = item.textColor
+        findItem.countColor = item.countColor
+        findItem.count = item.count
+        findItem.routeName = item.routeName
+      } else {
+        state.headerMsgLinks.push(item)
+      }
+    },
+    DEL_HEADER_MSG_LINK: (state, name) => {
+      const index = state.headerMsgLinks.findIndex(s=>s.name==name);
+      if (index>-1) {
+        state.headerMsgLinks.splice(index, 1);
+      }
+    },
+    RESET_HEADER_MSG_LINK: (state) => {
+      state.headerMsgLinks = [];
     }
   },
   actions: {
@@ -104,6 +126,15 @@ const appStore = {
     },
     setLastRoutePath({ commit }, path) {
       commit('SET_LAST_ROUTE_PATH', path)
+    },
+    setHeaderMsgLink({ commit }, item) {
+      commit('SET_HEADER_MSG_LINK', item)
+    },
+    delHeaderMsgLink({ commit }, name) {
+      commit('DEL_HEADER_MSG_LINK', name)
+    },
+    resetHeaderMsgLink({ commit }) {
+      commit('RESET_HEADER_MSG_LINK')
     }
   }
 }
