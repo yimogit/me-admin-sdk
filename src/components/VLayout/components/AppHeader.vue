@@ -1,18 +1,18 @@
 <template>
   <el-row :gutter="24">
     <el-col
-      :xs="3"
-      :sm="6"
-      :md="6"
+      :xs="10"
+      :sm="8"
+      :md="8"
     >
       <div>
         <slot name="left"></slot>&nbsp;
       </div>
     </el-col>
     <el-col
-      :xs="13"
-      :sm="12"
-      :md="12"
+      :xs="10"
+      :sm="8"
+      :md="8"
     >
       <div
         style="text-align:center;"
@@ -26,12 +26,15 @@
       </div>
     </el-col>
     <el-col
-      :xs="8"
-      :sm="6"
-      :md="6"
+      :xs="10"
+      :sm="8"
+      :md="8"
       class="text-right"
       style="float:right"
     >
+      <el-button type="text" size="mini" v-for="item in $store.getters.headerMsgLinks" :key="item.name" @click="$ui.pages.link({name: item.routeName})" style="margin-right:10px">
+        <span :style="{color: item.textColor}">{{item.name}}<span v-if="item.count&&item.count>0" :style="{color: item.countColor}">({{item.count}})</span></span>
+      </el-button>
       <v-picker-theme v-if="$store.getters.defaultThemeColors&&$store.getters.defaultThemeColors.length>0" />
       <el-button
         type="text"
