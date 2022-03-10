@@ -23,7 +23,7 @@ export const link = (route, isReplace) => {
     return
   }
   if (!isReplace && router.app.$route.name) store.dispatch("setLastRoutePath", router.app.$route.name)
-  isReplace ? router.replace(route) : router.push(route).catch(err => {})
+  isReplace ? router.replace(route) : router.push(route).catch(err => { })
 }
 export function message(options) {
   return Message(options)
@@ -41,6 +41,15 @@ export const warn = (msg, opt) => {
   _currentMessage({
     message: msg,
     type: 'warning',
+    showClose: true,
+    duration: 2000,
+    ...opt
+  })
+}
+export const error = (msg, opt) => {
+  _currentMessage({
+    message: msg,
+    type: 'error',
     showClose: true,
     duration: 2000,
     ...opt
@@ -117,7 +126,7 @@ export function dynamicLoadJs(url, callback) {
     script.type = 'text/javascript'
     script.src = url
     if (typeof callback === 'function') {
-      script.onload = script.onreadystatechange = function() {
+      script.onload = script.onreadystatechange = function () {
         if (
           !this.readyState ||
           this.readyState === 'loaded' ||
@@ -128,7 +137,7 @@ export function dynamicLoadJs(url, callback) {
         }
       }
     } else {
-      script.onload = script.onreadystatechange = function() {
+      script.onload = script.onreadystatechange = function () {
         resolve()
       }
     }
