@@ -61,7 +61,7 @@
             v-if="$store.getters.sysMenus&&$store.getters.sysMenus.length>0&&!$store.getters.isMobile"
             command="disabledTab"
             divided
-          >{{disabledTab?'启用':'禁用'}}选项卡</el-dropdown-item>
+          >{{disabledTab?'使用多':'使用单'}}选项卡</el-dropdown-item>
           <el-dropdown-item
             v-if="$store.getters.logoutPath"
             command="logout"

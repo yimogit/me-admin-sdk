@@ -284,8 +284,8 @@ export default {
         this.pageTabs[this.pageTabs.length - 1].tabRoute;
       if (this.$store.getters.lastRoutePath) {
         const lastRoutePath = this.$store.getters.lastRoutePath;
-        if (this.pageTabs.find(e => e.tabKey === lastRoutePath)) {
-          currentRoute = { name: lastRoutePath };
+        if (this.pageTabs.find(e => e.tabKey === lastRoutePath.name)) {
+          currentRoute = lastRoutePath.path;
         }
         this.$store.dispatch("setLastRoutePath", null)
       }

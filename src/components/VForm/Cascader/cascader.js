@@ -155,7 +155,11 @@ export default {
         /* eslint-disable */
         const first = {
           label: e1[this.displayType],
-          value: e1[this.bindType]
+          value: e1[this.bindType],
+          disabled: false
+        }
+        if (!!e1.disabled) {
+          first.disabled = true
         }
         if (e1.children && e1.children.length > 0) {
           first.children = this.mapLabel(e1.children)
