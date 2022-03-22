@@ -1,7 +1,7 @@
 <template>
-  <el-row :gutter="24">
+  <el-row :gutter="10">
     <el-col
-      :xs="10"
+      :xs="3"
       :sm="8"
       :md="8"
     >
@@ -10,7 +10,7 @@
       </div>
     </el-col>
     <el-col
-      :xs="10"
+      :xs="16"
       :sm="8"
       :md="8"
     >
@@ -26,11 +26,11 @@
       </div>
     </el-col>
     <el-col
-      :xs="10"
+      :xs="5"
       :sm="8"
       :md="8"
       class="text-right"
-      style="float:right"
+      style="float:right;overflow-y: hidden; height: 50px;"
     >
       <el-button type="text" size="mini" v-for="item in $store.getters.headerMsgLinks" :key="item.name" @click="$ui.pages.link({name: item.routeName})" style="margin-right:10px">
         <span :style="{color: item.textColor}">{{item.name}}<span v-if="item.count&&item.count>0" :style="{color: item.countColor}">({{item.count}})</span></span>

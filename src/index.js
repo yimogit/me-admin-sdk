@@ -22,6 +22,19 @@ export function registerApi(moduleName, apiInit) {
     Object.assign($api, apiInit(fetch))
   }
 }
+
+export function resolveApi(moduleName) {
+  return $api[moduleName]
+}
+
+export function resolveStore() {
+  return store
+}
+
+export function resolve$ui() {
+  return $ui
+}
+
 //注册一些通用的方法
 export function registerCodes(moduleName, codesInit) {
   if (moduleName) {
