@@ -62,7 +62,7 @@
     "postcss": "^7.0.14",
     "sass-loader": "^7.0.1",
     "shelljs": "^0.8.2",
-    "terser": "^3.17.0",
+    "terser": "^4.8.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "url-loader": "^1.1.2",
     "vue-loader": "^15.7.0",
